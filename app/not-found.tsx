@@ -1,4 +1,3 @@
-// pages/404.tsx (if using TypeScript)
 import Link from "next/link";
 
 const NotFound = () => {
@@ -9,7 +8,7 @@ const NotFound = () => {
           404
         </h1>
         <p className="text-xl md:text-[2.25rem] mb-8">
-          The page you're looking for doesn't exist.
+          The page you&apos;re looking for doesn&apos;t exist.
         </p>
         <Link
           href="/"

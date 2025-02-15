@@ -41,7 +41,7 @@ export function CheckoutTimeline() {
             className="relative z-10 flex flex-col items-center"
           >
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
+              className={`md:w-10 md:h-10 w-8 h-8 rounded-full flex items-center justify-center border-2 ${
                 step.id < currentStep
                   ? "bg-burgundy border-burgundy text-white"
                   : step.id === currentStep
@@ -56,7 +56,7 @@ export function CheckoutTimeline() {
               )}
             </div>
             <span
-              className={`mt-2 text-sm font-medium ${
+              className={`mt-2 text-[12px] text-center block md:text-sm mr-2 md:mr-0 font-medium ${
                 step.id <= currentStep ? "text-burgundy" : "text-gray-400"
               }`}
             >

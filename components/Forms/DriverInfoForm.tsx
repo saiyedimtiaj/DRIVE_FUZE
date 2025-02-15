@@ -69,7 +69,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
   return (
     <CRform onSubmit={handleSubmit}>
       <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2 w-full">
             <CRSelect
               name="customerInfo.gender"
@@ -92,7 +92,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2 w-full">
             <CRInput
               name="customerInfo.lastName"
@@ -111,7 +111,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2 w-full">
             <CRInput
               name="customerInfo.phoneNumber"
@@ -131,7 +131,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2 w-full">
             <CRSelect
               label="Employment Status"
@@ -151,7 +151,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2 w-full">
             <CRInput
               name="customerInfo.salary"
@@ -188,7 +188,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               required
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <CRInput name="address.townCity" label="Town/City" required />
             </div>
@@ -201,7 +201,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <CRInput name="address.postcode" label="Postcode" required />
             </div>
@@ -215,7 +215,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
             Additional Driver Information
           </h3>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRSelect
                   name="aditionalDriverInfo.gender"
@@ -237,7 +237,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput
                   // required={aditionalDriver ? true : false}
@@ -254,7 +254,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput
                   //   required={aditionalDriver ? true : false}
@@ -274,7 +274,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRSelect
                   label="Employment Status"
@@ -293,7 +293,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput
                   // required={aditionalDriver ? true : false}
