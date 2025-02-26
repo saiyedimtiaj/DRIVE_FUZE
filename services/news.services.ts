@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import axiosInstance from "@/lib/axiosInstance";
@@ -50,11 +51,14 @@ export const deleteNews = async (id: string) => {
 
 export const getAllNewslient = async () => {
   try {
-    const data = await fetch("http://localhost:5000/api/v1/news", {
-      next: {
-        tags: ["news"],
-      },
-    });
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/news`,
+      {
+        next: {
+          tags: ["news"],
+        },
+      }
+    );
     return data.json();
   } catch (err: any) {
     return err?.response?.data;
@@ -63,11 +67,14 @@ export const getAllNewslient = async () => {
 
 export const getSingleNews = async (id: string) => {
   try {
-    const data = await fetch(`http://localhost:5000/api/v1/news/${id}`, {
-      next: {
-        tags: ["news"],
-      },
-    });
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/news/${id}`,
+      {
+        next: {
+          tags: ["news"],
+        },
+      }
+    );
     return data.json();
   } catch (err: any) {
     return err?.response?.data;

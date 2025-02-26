@@ -41,7 +41,9 @@ export default async function NewsArticle({
           </div>
 
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">{article?.data?.title}</h1>
+            <h1 className="md:text-4xl text-xl font-bold mb-4">
+              {article?.data?.title}
+            </h1>
             <div className="text-sm text-muted-foreground">
               {new Date(article?.data?.createdAt).toLocaleDateString()}
             </div>

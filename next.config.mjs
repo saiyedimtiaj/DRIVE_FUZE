@@ -7,6 +7,8 @@ const nextConfig = {
       "mediaservice.audi.com",
       "media-assets.mazda.eu",
       "media.istockphoto.com",
+      "res.cloudinary.com",
+      "apany-backend.onrender.com",
     ],
   },
   typescript: {

@@ -43,6 +43,7 @@ function BlogTable() {
   const handleDelete = (id: string) => {
     deleteBlog(id, {
       onSuccess: (data) => {
+        console.log(data);
         if (data?.success) {
           toast({
             title: "Article Deleted",
@@ -130,7 +131,7 @@ function BlogTable() {
   ];
 
   const table = useReactTable({
-    data: data?.data || [],
+    data: data?.data ?? [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

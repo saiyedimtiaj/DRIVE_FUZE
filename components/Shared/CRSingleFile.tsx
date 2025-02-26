@@ -72,7 +72,7 @@ const CRSingleFile = ({
             height={500}
             src={imageSrc}
             alt="Preview"
-            className="object-cover w-full h-56 p-4 rounded-lg"
+            className="object-cover w-full h-56 p-2 md:p-4 rounded-lg"
           />
           <button
             type="button"

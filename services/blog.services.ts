@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import axiosInstance from "@/lib/axiosInstance";
-import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 export const getAllBlogs = async () => {
   try {
     const { data } = await axiosInstance.get(`/blog`);
-    revalidateTag("blog");
     return data;
   } catch (err: any) {
     return err?.response?.data;
@@ -17,7 +16,6 @@ export const getAllBlogs = async () => {
 export const createBlog = async (payload: FieldValues) => {
   try {
     const { data } = await axiosInstance.post(`/blog`, payload);
-    revalidateTag("blog");
     return data;
   } catch (err: any) {
     return err?.response?.data;
@@ -33,7 +31,6 @@ export const updateBlog = async (payload: {
       `/blog/${payload.id}`,
       payload.payload
     );
-    revalidateTag("blog");
     return data;
   } catch (err: any) {
     return err?.response?.data;
@@ -43,7 +40,6 @@ export const updateBlog = async (payload: {
 export const deleteBlog = async (id: string) => {
   try {
     const { data } = await axiosInstance.delete(`/blog/${id}`);
-    revalidateTag("blog");
     return data;
   } catch (err: any) {
     return err?.response?.data;
@@ -52,11 +48,14 @@ export const deleteBlog = async (id: string) => {
 
 export const getAllBlogsClient = async () => {
   try {
-    const data = await fetch("http://localhost:5000/api/v1/blog", {
-      next: {
-        tags: ["blog"],
-      },
-    });
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/blog`,
+      {
+        next: {
+          tags: ["blog"],
+        },
+      }
+    );
     return data.json();
   } catch (err: any) {
     return err?.response?.data;
@@ -65,11 +64,14 @@ export const getAllBlogsClient = async () => {
 
 export const getSingleBlog = async (id: string) => {
   try {
-    const data = await fetch(`http://localhost:5000/api/v1/blog/${id}`, {
-      next: {
-        tags: ["blog"],
-      },
-    });
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/blog/${id}`,
+      {
+        next: {
+          tags: ["blog"],
+        },
+      }
+    );
     return data.json();
   } catch (err: any) {
     return err?.response?.data;

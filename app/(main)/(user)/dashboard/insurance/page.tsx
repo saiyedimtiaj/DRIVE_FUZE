@@ -3,9 +3,9 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 mb-10">
       {/* Hero Section */}
-      <section className="flex flex-col lg:flex-row items-center justify-between bg-gray-50 p-8 rounded-lg shadow-md">
+      <section className="flex flex-col lg:flex-row items-center justify-between bg-gray-50 p-4 md:p-8 rounded-lg shadow-md">
         <div className="space-y-4 max-w-lg">
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">
             Submit Your Insurance Claim
@@ -33,7 +33,7 @@ const page = () => {
           Insurance Help Center
         </h2>
         <div className="space-y-4">
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700">
               Who is Flock?
             </h3>
@@ -45,7 +45,7 @@ const page = () => {
               user-friendly insurance solutions for vehicles.
             </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700">
               FCA-Regulated Partner
             </h3>
@@ -55,7 +55,7 @@ const page = () => {
               that your insurance needs are handled professionally and securely.
             </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700">
               What Does Your Insurance Cover?
             </h3>
@@ -75,7 +75,7 @@ const page = () => {
               subscription, located in your current subscription tab.
             </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700">
               How to File a Claim
             </h3>
@@ -93,7 +93,7 @@ const page = () => {
               <li>Email: [Insert Flock’s support email]</li>
             </ul>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700">
               Need Assistance?
             </h3>

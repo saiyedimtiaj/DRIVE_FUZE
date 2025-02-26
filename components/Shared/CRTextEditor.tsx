@@ -1,12 +1,20 @@
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { Controller } from "react-hook-form";
+"use client";
+
+import dynamic from "next/dynamic";
+
+// Dynamically import ReactQuill with SSR disabled
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css"; // Import the Quill CSS
+
+import { useFormContext, Controller } from "react-hook-form";
 
 type TProps = {
   name: string;
 };
 
 const CRTextEditor = ({ name }: TProps) => {
+  const { control } = useFormContext(); // Get control from form context
+
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
@@ -24,9 +32,8 @@ const CRTextEditor = ({ name }: TProps) => {
     <div>
       <Controller
         name={name}
-        rules={{
-          required: true,
-        }}
+        control={control} // Use control from context
+        rules={{ required: true }}
         render={({ field }) => (
           <ReactQuill
             className="h-[130px] lg:h-[160px]"

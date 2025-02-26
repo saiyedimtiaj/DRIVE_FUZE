@@ -9,7 +9,7 @@ import { FieldValues } from "react-hook-form";
 
 export const useGetAllBlog = () => {
   return useQuery({
-    queryKey: ["GET_BLOGS"],
+    queryKey: ["GET_BLOGS_ALL"],
     queryFn: async () => await getAllBlogs(),
   });
 };

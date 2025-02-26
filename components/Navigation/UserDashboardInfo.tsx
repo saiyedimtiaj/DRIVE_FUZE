@@ -8,12 +8,14 @@ import { UserCircle2 } from "lucide-react";
 const UserDashboardInfo = () => {
   const { user } = useUser();
   return (
-    <div className="flex justify-between items-center mb-4">
+    <div className="flex justify-between mb-4">
       <div>
-        <h1 className="text-3xl font-bold text-primary">
+        <h1 className="text-xl md:text-3xl font-bold text-primary">
           Welcome back, {user?.firstName}
         </h1>
-        <p>Here&apos;s what&apos;s happening with your subscriptions</p>
+        <p className="text-sm md:text-base">
+          Here&apos;s what&apos;s happening with your subscriptions
+        </p>
       </div>
       <Link href="/dashboard/account">
         <div className="space-x-2">

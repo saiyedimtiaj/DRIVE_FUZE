@@ -37,7 +37,9 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
           </div>
 
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">{post?.data?.title}</h1>
+            <h1 className="text-xl md:text-4xl font-bold mb-4">
+              {post?.data?.title}
+            </h1>
             <div className="flex items-center text-sm text-muted-foreground">
               <span>{post?.data?.author}</span>
               <span className="mx-2">•</span>

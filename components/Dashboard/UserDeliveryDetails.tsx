@@ -57,7 +57,7 @@ export default function UserDeliveryDetails() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Request Details */}
-            <Card className="p-6">
+            <Card className="p-4 md:p-6">
               <h2 className="text-2xl font-bold mb-6">Request Details</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -94,7 +94,7 @@ export default function UserDeliveryDetails() {
               </div>
             </Card>
 
-            <Card className="p-6">
+            <Card className="p-4 md:p-6">
               <h2 className="text-2xl font-bold mb-6">Request Timeline</h2>
               <div className="space-y-6">
                 <div className="relative pl-6 pb-6 last:pb-0">
@@ -147,7 +147,7 @@ export default function UserDeliveryDetails() {
                 </div>
               </div>
             </Card>
-            <Card className="p-6">
+            <Card className="p-4 md:p-6">
               <Label className="text-muted-foreground mb-2">Car Photos</Label>
               <div className="grid grid-cols-1 md:grid-cols-2 mt-4 gap-4 lg:grid-cols-3">
                 {prepData?.data?.carImages?.map((img: { url: string }) => (
@@ -191,7 +191,7 @@ export default function UserDeliveryDetails() {
 
           {/* Status Sidebar */}
           <div className="space-y-6">
-            <Card className="p-6 sticky top-24">
+            <Card className="p-4 md:p-6 sticky top-24">
               <h2 className="text-xl font-bold mb-6">Status</h2>
               <div className="space-y-6">
                 <div>

@@ -54,6 +54,7 @@ const CreateBlogModel = ({ isOpen, setIsOpen, refetch }: Props) => {
 
     createBlog(formData, {
       onSuccess: (data) => {
+        console.log(data);
         if (data?.success) {
           toast({
             title: "Blog Created Successfully",

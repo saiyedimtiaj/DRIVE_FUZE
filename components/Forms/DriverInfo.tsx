@@ -200,12 +200,12 @@ const DriverInfo = () => {
                     { name: "Male", value: "male" },
                     { name: "Female", value: "female" },
                   ]}
-                  //   required={aditionalDriver ? true : false}
+                  required={!!data?.data?.aditionalDriver}
                 />
               </div>
               <div className="space-y-2">
                 <CRInput
-                  //   required={aditionalDriver ? true : false}
+                  required={!!data?.data?.aditionalDriver}
                   name="aditionalDriverInfo.firstName"
                   label="First Name"
                   placeholder="First Name"
@@ -233,7 +233,7 @@ const DriverInfo = () => {
             <div className="block md:grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput
-                  //   required={aditionalDriver ? true : false}
+                  required={!!data?.data?.aditionalDriver}
                   name="aditionalDriverInfo.phone"
                   label="Phone Number"
                   placeholder="Phone Number"
@@ -256,12 +256,12 @@ const DriverInfo = () => {
                   label="Employment Status"
                   name="aditionalDriverInfo.employmentStatus"
                   items={EMPLOYMENT_STATUSES}
-                  //   required={aditionalDriver ? true : false}
+                  required={!!data?.data?.aditionalDriver}
                 />
               </div>
               <div className="space-y-2">
                 <CRInput
-                  //   required={aditionalDriver ? true : false}
+                  required={!!data?.data?.aditionalDriver}
                   name="aditionalDriverInfo.jobTitle"
                   label="Job Title"
                   placeholder="Job Title"

@@ -37,6 +37,7 @@ const SmDashboardSidebar = () => {
             href: "/dashboard/subscription-request",
           },
           { label: "Support", href: "/dashboard/support" },
+          { label: "Insurance", href: "/dashboard/insurance" },
         ];
 
   return (

@@ -224,12 +224,12 @@ const DriverInfoForm = ({ id }: { id: string }) => {
                     { name: "Male", value: "male" },
                     { name: "Female", value: "female" },
                   ]}
-                  //   required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                 />
               </div>
               <div className="space-y-2">
                 <CRInput
-                  //   required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                   name="aditionalDriverInfo.firstName"
                   label="First Name"
                   placeholder="First Name"
@@ -240,14 +240,14 @@ const DriverInfoForm = ({ id }: { id: string }) => {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput
-                  // required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                   name="aditionalDriverInfo.lastName"
                   label="Last Name"
                   placeholder="Last Name"
                 />
               </div>
               <CRInput
-                // required={aditionalDriver ? true : false}
+                required={!!searchParams.get("additionalDriver")}
                 name="aditionalDriverInfo.licenseNumber"
                 label="License Number"
                 placeholder="License Number"
@@ -257,7 +257,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput
-                  //   required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                   name="aditionalDriverInfo.phone"
                   label="Phone Number"
                   placeholder="Phone Number"
@@ -265,7 +265,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
               </div>
               <div className="space-y-2">
                 <CRInput
-                  // required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                   name="aditionalDriverInfo.email"
                   label="Email Address"
                   type="email"
@@ -280,33 +280,22 @@ const DriverInfoForm = ({ id }: { id: string }) => {
                   label="Employment Status"
                   name="aditionalDriverInfo.employmentStatus"
                   items={EMPLOYMENT_STATUSES}
-                  //   required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                 />
               </div>
               <div className="space-y-2">
                 <CRInput
-                  //   required={aditionalDriver ? true : false}
+                  required={!!searchParams.get("additionalDriver")}
                   name="aditionalDriverInfo.jobTitle"
                   label="Job Title"
                   placeholder="Job Title"
                 />
               </div>
             </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <CRInput
-                  // required={aditionalDriver ? true : false}
-                  name="aditionalDriverInfo.salary"
-                  label="Salary (£/annum before tax)"
-                  placeholder="Salary"
-                  type="number"
-                />
-              </div>
-            </div>
           </div>
         </div>
       )}
+
       <Button className="mt-5" disabled={isPending} type="submit">
         {isPending ? (
           <>

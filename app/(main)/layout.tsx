@@ -1,7 +1,7 @@
 "use client";
 import { Footer } from "@/components/Shared/Footer";
 import Navbar from "@/components/Shared/Navbar";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 
 // Extend the global Window interface to include OpenWidget types
 declare global {

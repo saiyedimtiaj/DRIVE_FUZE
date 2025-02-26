@@ -10,9 +10,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Watch className="h-8 w-8 text-burgundy" />
-              <span className="text-xl font-bold text-burgundy">
-                Drive Fuze
-              </span>
+              <span className="text-xl font-bold text-burgundy">Company 1</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Revolutionizing car ownership with flexible, all-inclusive

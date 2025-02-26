@@ -3,20 +3,14 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { Card } from "../ui/card";
-import {
-  ArrowRight,
-  Car,
-  Clock,
-  CreditCard,
-  FileText,
-  Loader2,
-} from "lucide-react";
+import { ArrowRight, Car, Loader2 } from "lucide-react";
 import UserDashboardInfo from "./UserDashboardInfo";
 import { useGetCurrentSubscription } from "@/hooks/subscription.hooks";
 import { Button } from "../ui/button";
 import { useUser } from "@/lib/user.provider";
 import { useCustomerPortal } from "@/hooks/payment.hooks";
 import { toast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 const UserLayout = () => {
   const { data } = useGetCurrentSubscription();
@@ -54,11 +48,13 @@ const UserLayout = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="p-6 bg-gradient-radial from-burgundy to-burgundy/90 text-white">
+        <Card className="p-4 md:p-6 bg-gradient-radial from-burgundy to-burgundy/90 text-white">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-white/80">Active Subscription</p>
-              <p className="text-2xl font-bold mt-1">{activeSubscription}</p>
+              <p className="text-xl md:text-2xl font-bold mt-1">
+                {activeSubscription}
+              </p>
               <Link
                 href={
                   data?.data
@@ -81,11 +77,13 @@ const UserLayout = () => {
         </Card>
 
         {/* Payment Card */}
-        <Card className="p-6 bg-gradient-radial text-white from-blue-500 to-blue-700">
+        <Card className="p-4 md:p-6 bg-gradient-radial text-white from-blue-500 to-blue-700">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm">Payments</p>
-              <p className="text-2xl font-bold">Manage your payment account</p>
+              <p className="text-xl md:text-2xl font-bold">
+                Manage your payment account
+              </p>
               <Button
                 variant="secondary"
                 size="sm"
@@ -101,7 +99,9 @@ const UserLayout = () => {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            <img
+            <Image
+              width={500}
+              height={500}
               src="https://www.logo.wine/a/logo/Stripe_(company)/Stripe_(company)-Powered-by-Stripe-Logo.wine.svg"
               alt="Stripe Logo"
               className="h-32 w-32 mt-[-30px]"
@@ -110,11 +110,11 @@ const UserLayout = () => {
         </Card>
 
         {/* Insurance Card */}
-        <Card className="p-6 text-white bg-[#19282D]">
+        <Card className="p-4 md:p-6 text-white bg-[#19282D]">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm text-muted-foreground">Insurance</p>
-              <p className="text-2xl font-bold mt-1">
+              <p className="text-xl md:text-2xl font-bold mt-1">
                 Need to file a claim? Scan the QR code
               </p>
               <Button
@@ -129,10 +129,12 @@ const UserLayout = () => {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            <img
+            <Image
+              width={500}
+              height={500}
               src="https://media.istockphoto.com/id/1347277582/vector/qr-code-sample-for-smartphone-scanning-on-white-background.jpg?s=612x612&w=0&k=20&c=6e6Xqb1Wne79bJsWpyyNuWfkrUgNhXR4_UYj3i_poc0="
               alt="QR Logo"
-              className="h-32 w-32"
+              className="md:h-32 md:w-32 w-24 h-24"
             />
           </div>
         </Card>

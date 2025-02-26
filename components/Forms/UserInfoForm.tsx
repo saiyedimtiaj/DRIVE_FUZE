@@ -85,7 +85,7 @@ export default function UserInfo() {
   }
 
   return (
-    <div className="container mx-auto px-4 pb-8">
+    <div className="pb-8">
       <Link
         href="/dashboard/my-subscription"
         className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
@@ -103,10 +103,10 @@ export default function UserInfo() {
 
       <CRform onSubmit={handleSubmit} defaultValues={data?.data}>
         {/* Driver Information */}
-        <Card className="p-6">
+        <Card className="p-4 md:p-6">
           <h2 className="text-xl font-semibold mb-6">Driver Information</h2>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2 w-full">
                 <CRSelect
                   name="gender"
@@ -122,7 +122,7 @@ export default function UserInfo() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2 w-full">
                 <CRInput name="lastName" label="Last Name" />
               </div>
@@ -131,7 +131,7 @@ export default function UserInfo() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2 w-full">
                 <CRInput name="phoneNumber" label="Phone Number" />
               </div>
@@ -140,7 +140,7 @@ export default function UserInfo() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2 w-full">
                 <CRSelect
                   label="Employment Status"
@@ -153,7 +153,7 @@ export default function UserInfo() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2 w-full">
                 <CRInput name="salary" label="Salary (£/annum before tax" />
               </div>
@@ -174,7 +174,7 @@ export default function UserInfo() {
             <div className="space-y-2">
               <CRInput name="addressLine2" label="Address Line 2" />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput name="townCity" label="Town/City" />
               </div>
@@ -182,7 +182,7 @@ export default function UserInfo() {
                 <CRSelect name="country" label="Country" items={COUNTRIES} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <CRInput name="postcode" label="Postcode" />
               </div>
