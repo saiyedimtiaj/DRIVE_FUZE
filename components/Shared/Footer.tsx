@@ -69,7 +69,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Contact</h3>
             <address className="text-sm text-muted-foreground not-italic">
-              Drive Fuze Limited
+              Company 1 Limited
               <br />
               Monometer House
               <br />
@@ -101,10 +101,10 @@ export function Footer() {
         {/* Copyright Notice */}
         <div className="mt-12 pt-8 border-t text-xs text-center text-muted-foreground">
           <p>
-            Copyright notice: 2025 Drive Fuze Limited. Drive Fuze is a
-            registered trademark of Drive Fuze Ltd. All rights reserved. Drive
-            Fuze Limited, Monometer House, Rectory Grove, Leigh On Sea, Essex,
-            England, SS9 2HL. Company Registration Number 13840019.
+            Copyright notice: 2025 Company 1 Limited. Company 1 is a registered
+            trademark of Company 1 Ltd. All rights reserved. Drive Fuze Limited,
+            Monometer House, Rectory Grove, Leigh On Sea, Essex, England, SS9
+            2HL. Company Registration Number 13840019.
           </p>
         </div>
       </div>

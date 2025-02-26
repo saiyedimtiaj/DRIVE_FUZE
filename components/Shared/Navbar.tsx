@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Watch, UserCircle2, ShoppingBag, Menu } from "lucide-react";
+import { Watch, UserCircle2, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useUser } from "@/lib/user.provider";
 import { usePathname, useRouter } from "next/navigation";
@@ -49,9 +49,7 @@ function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo and Sidebar for Dashboard */}
           <div className="flex items-center gap-2">
-            {["/dealer", "/admin", "/dashboard"].some((path) =>
-              pathname.includes(path)
-            ) && (
+            {/^\/(dealer|admin|dashboard)(\/|$)/.test(pathname) && (
               <div className="block lg:hidden">
                 <SmDashboardSidebar />
               </div>
@@ -84,11 +82,6 @@ function Navbar() {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            {/* Cart Icon */}
-            <Button variant="ghost" size="icon" className="text-primary">
-              <ShoppingBag className="h-5 w-5" />
-            </Button>
-
             {/* User Role-Based Button */}
             <div className="md:block hidden">
               {user ? (

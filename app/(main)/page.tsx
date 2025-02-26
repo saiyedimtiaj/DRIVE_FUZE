@@ -29,7 +29,7 @@ const page = () => {
               <div></div>
               <div className="text-center">
                 <span className="text-xl font-bold text-burgundy">
-                  Drive Fuze
+                  Company 1
                 </span>
               </div>
               <div className="text-center">

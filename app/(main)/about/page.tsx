@@ -12,7 +12,7 @@ export default function AboutPage() {
         </div>
         <div className="relative container mx-auto px-4">
           <h1 className="text-4xl font-bold text-primary mb-4">
-            About Drive Fuze
+            About Company 1
           </h1>
           <p className="text-lg text-primary/80 max-w-2xl">
             Revolutionizing car ownership with flexible, all-inclusive
@@ -77,7 +77,7 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold mb-6">Our Story</h2>
           <div className="space-y-6 text-primary/80">
             <p>
-              Founded in 2022, Drive Fuze emerged from a simple observation:
+              Founded in 2022, Company 1 emerged from a simple observation:
               traditional car ownership doesn&apos;t align with modern
               lifestyles. We saw a need for flexibility, simplicity, and
               transparency in the automotive industry.
@@ -89,7 +89,7 @@ export default function AboutPage() {
               the freedom and flexibility that today&apos;s drivers demand.
             </p>
             <p>
-              Today, Drive Fuze is at the forefront of the car subscription
+              Today, Company 1 is at the forefront of the car subscription
               revolution, offering a curated selection of premium vehicles with
               all-inclusive monthly subscriptions. We handle everything from
               insurance and maintenance to road tax and MOT, so you can focus on
@@ -104,7 +104,7 @@ export default function AboutPage() {
             Ready to Join the Future of Car Ownership?
           </h2>
           <p className="text-lg text-primary/80 mb-8 max-w-2xl mx-auto">
-            Experience the freedom of flexible car subscription with Drive Fuze.
+            Experience the freedom of flexible car subscription with Company 1.
           </p>
           <Button className="bg-burgundy hover:bg-burgundy/90 text-white">
             Browse Our Cars

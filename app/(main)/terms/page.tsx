@@ -25,7 +25,7 @@ export default function TermsPage() {
             </h2>
             <div className="space-y-4 text-primary/80">
               <p>
-                By subscribing to Drive Fuze, you agree to these terms and
+                By subscribing to Company 1, you agree to these terms and
                 conditions. The subscription agreement begins on the delivery
                 date and continues until terminated in accordance with these
                 terms.

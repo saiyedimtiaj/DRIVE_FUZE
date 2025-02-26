@@ -1,5 +1,6 @@
 import HowItWork from "@/components/Main/HowItWork";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -36,9 +37,11 @@ const page = () => {
           Join thousands of satisfied customers who have already made the switch
           to car subscription.
         </p>
-        <Button className="bg-burgundy hover:bg-burgundy/90 text-white">
-          Browse Our Cars
-        </Button>
+        <Link href={"/subscribe"}>
+          <Button className="bg-burgundy hover:bg-burgundy/90 text-white">
+            Browse Our Cars
+          </Button>
+        </Link>
       </div>
     </div>
   );

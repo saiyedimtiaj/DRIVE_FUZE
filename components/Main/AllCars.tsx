@@ -125,7 +125,10 @@ const AllCars = ({
                 <SelectItem value="good">Good</SelectItem>
               </SelectContent>
             </Select>
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full bg-burgundy-600 hover:bg-burgundy-700 text-white"
+            >
               Search
             </Button>
           </div>
@@ -170,7 +173,7 @@ const AllCars = ({
                   </div>
 
                   <Link href={`/subscribe/${car._id}`}>
-                    <Button className="w-full bg-secondary hover:bg-secondary-dark text-primary font-medium">
+                    <Button className="w-full bg-burgundy-500 hover:bg-burgundy-600 text-white font-medium">
                       View Details
                     </Button>
                   </Link>

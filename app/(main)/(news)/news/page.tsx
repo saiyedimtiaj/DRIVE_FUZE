@@ -25,7 +25,7 @@ export default async function NewsPage() {
           <h1 className="text-4xl font-bold text-primary mb-4">Latest News</h1>
           <p className="text-lg text-primary/80 max-w-2xl">
             Stay updated with the latest announcements and developments from
-            Drive Fuze.
+            Company 1.
           </p>
         </div>
       </div>

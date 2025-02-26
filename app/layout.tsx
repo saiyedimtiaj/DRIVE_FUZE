@@ -11,7 +11,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Drive Fuze | Car Subscriptions Made Simple",
+  title: "Company 1 | Car Subscriptions Made Simple",
   description:
     "Subscribe to cars with flexible terms and secure ownership options.",
 };

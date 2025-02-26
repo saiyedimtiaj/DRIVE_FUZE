@@ -126,7 +126,7 @@ const HowItWork = () => {
 
   return (
     <div className="relative container mx-auto px-4 py-16">
-      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-burgundy/20" />
+      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-burgundy/20 hidden md:block" />
 
       {steps.map((step, index) => {
         const Icon = step.icon;
@@ -136,29 +136,35 @@ const HowItWork = () => {
           <div
             key={step.id}
             ref={(el) => {
-              stepsRef.current[index] = el; // Assign the element to the ref array
+              stepsRef.current[index] = el;
             }}
-            className={`relative flex items-center mb-32 last:mb-0 ${
-              isEven ? "flex-row" : "flex-row-reverse"
+            className={`relative flex flex-col md:flex-row items-center mb-16 md:mb-32 ${
+              isEven ? "md:flex-row" : "md:flex-row-reverse"
             }`}
           >
-            {/* Step Number */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-burgundy text-white flex items-center justify-center font-bold z-10">
+            {/* Step Number (Always Centered) */}
+            <div className="absolute hidden md:left-1/2 md:-translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-burgundy text-white md:flex items-center justify-center font-bold z-10">
               {step.id}
             </div>
 
             {/* Content */}
-            <div className={`w-1/2 ${isEven ? "pr-16" : "pl-16"}`}>
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-500">
-                <div className="p-6">
-                  <div className="flex items-center space-x-2 mb-4">
+            <div
+              className={`w-full md:w-1/2 ${isEven ? "md:pr-12" : "md:pl-12"}`}
+            >
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-500">
+                <div className="p-5 md:p-6">
+                  <div className="flex items-center space-x-2 mb-3 md:mb-4">
                     <div className="p-2 rounded-lg bg-burgundy">
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold">{step.title}</h3>
+                    <h3 className="text-xl md:text-2xl font-bold">
+                      {step.title}
+                    </h3>
                   </div>
-                  <p className="text-primary/80 mb-6">{step.description}</p>
-                  <ul className="space-y-2">
+                  <p className="text-primary/80 mb-4 md:mb-6">
+                    {step.description}
+                  </p>
+                  <ul className="space-y-1.5 md:space-y-2">
                     {step.details.map((detail, idx) => (
                       <li key={idx} className="flex items-center text-sm">
                         <div className="h-1.5 w-1.5 rounded-full bg-burgundy mr-2" />
