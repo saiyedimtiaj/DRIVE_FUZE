@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import axiosInstance from "@/lib/axiosInstance";
@@ -41,12 +42,21 @@ export const logInUser = async (userData: {
   email: string;
   password: string;
 }) => {
-  console.log(userData);
   try {
     const { data } = await axiosInstance.post("/auth/signin", userData);
     if (data?.success) {
-      cookies().set("accessToken", data?.data?.accessToken);
-      cookies().set("refreshToken", data?.data?.refreshToken);
+      cookies().set("accessToken", data?.data?.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 300,
+      });
+      cookies().set("refreshToken", data?.data?.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 365 * 24 * 60 * 60 * 1000,
+      });
     }
     return data;
   } catch (err: any) {
