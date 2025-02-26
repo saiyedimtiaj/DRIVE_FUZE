@@ -46,8 +46,8 @@ function RiskAssessmentTable() {
       header: "Customer Name",
       cell: ({ row }) => (
         <div className="capitalize">
-          {row.original.requestId.customerInfo.firstName}{" "}
-          {row.original.requestId.customerInfo.lastName}
+          {row.original?.requestId?.customerInfo?.firstName}{" "}
+          {row.original?.requestId?.customerInfo?.lastName}
         </div>
       ),
     },
@@ -56,7 +56,7 @@ function RiskAssessmentTable() {
       header: "Address",
       cell: ({ row }) => (
         <div className="capitalize">
-          {row.original?.requestId.address.addressLine1}
+          {row.original?.requestId?.address?.addressLine1}
         </div>
       ),
     },
@@ -64,7 +64,7 @@ function RiskAssessmentTable() {
       accessorKey: "Email",
       header: "Email",
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.userId.email}</div>
+        <div className="capitalize">{row.original?.userId?.email}</div>
       ),
     },
     {
@@ -72,7 +72,7 @@ function RiskAssessmentTable() {
       header: "Phone",
       cell: ({ row }) => (
         <div className="capitalize">
-          {row.original?.requestId.customerInfo.phoneNumber}
+          {row.original?.requestId?.customerInfo?.phoneNumber}
         </div>
       ),
     },

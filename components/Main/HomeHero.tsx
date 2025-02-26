@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import WordEffect from "./WordEffect";
 import Image from "next/image";
+import Link from "next/link";
 
 const HomeHero = () => {
   return (
@@ -24,12 +25,14 @@ const HomeHero = () => {
             deposit, monthly car subscription
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button
-              size="lg"
-              className="text-lg px-8 bg-[#800020] hover:bg-[#800020]/90 text-white"
-            >
-              Choose your car
-            </Button>
+            <Link href="/subscribe">
+              <Button
+                size="lg"
+                className="text-lg px-8 bg-[#800020] hover:bg-[#800020]/90 text-white"
+              >
+                Choose your car
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="text-lg px-8">
               Learn more
               <ArrowRight className="ml-2 h-5 w-5" />

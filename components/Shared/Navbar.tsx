@@ -88,7 +88,9 @@ function Navbar() {
                 pathname.includes("/dashboard") ||
                 pathname.includes("/admin") ||
                 pathname.includes("/dealer") ? (
-                  <Button onClick={handleLogout}>Log Out</Button>
+                  <Button className="bg-[#800020]" onClick={handleLogout}>
+                    Log Out
+                  </Button>
                 ) : (
                   <Link href={getDashboardLink()}>
                     <Button className="w-full bg-[#800020] text-white">
@@ -134,7 +136,9 @@ function Navbar() {
                     pathname.includes("/dashboard") ||
                     pathname.includes("/admin") ||
                     pathname.includes("/dealer") ? (
-                      <Button onClick={handleLogout}>Log Out</Button>
+                      <Button className="bg-[#800020]" onClick={handleLogout}>
+                        Log Out
+                      </Button>
                     ) : (
                       <Link href={getDashboardLink()}>
                         <Button className="w-full bg-[#800020] text-white">

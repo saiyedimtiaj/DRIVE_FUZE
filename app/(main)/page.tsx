@@ -26,7 +26,6 @@ const page = () => {
           <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-auto">
             <div className="w-[600px] md:w-full grid grid-cols-4 gap-4 p-6">
               {/* Headers */}
-              <div></div>
               <div className="text-center">
                 <span className="text-xl font-bold text-burgundy">
                   Company 1

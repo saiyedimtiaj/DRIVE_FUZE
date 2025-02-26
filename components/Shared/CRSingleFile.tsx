@@ -23,11 +23,11 @@ const CRSingleFile = ({
 
     if (!newImage) return;
 
-    if (newImage.size > 10 * 1024 * 1024) {
+    // ✅ Restrict file size to 1MB
+    if (newImage.size > 1 * 1024 * 1024) {
       toast({
-        title: "Error",
-        description: "Maximum image size is 10MB.",
-        variant: "destructive",
+        title: "failed",
+        description: "Image size must be less than 1MB",
       });
       return;
     }
@@ -43,7 +43,7 @@ const CRSingleFile = ({
     image instanceof File ? URL.createObjectURL(image) : (image as string);
 
   return (
-    <div className="">
+    <div>
       {!image && (
         <div className="border-2 border-dashed rounded-lg p-14 text-center">
           <input
@@ -59,7 +59,7 @@ const CRSingleFile = ({
               Click to upload or drag and drop
             </p>
             <p className="text-xs text-gray-500 mt-1">
-              PNG, JPG, GIF up to 10MB
+              PNG, JPG, GIF (Max: 1MB)
             </p>
           </Label>
         </div>

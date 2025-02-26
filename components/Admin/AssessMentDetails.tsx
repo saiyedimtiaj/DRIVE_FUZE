@@ -155,10 +155,12 @@ export default function AssessMentDetails({ id }: { id: string }) {
     return <LoaderScreen />;
   }
 
+  console.log(data?.data);
+
   return (
     <div className="container mx-auto px-4 pb-8">
       <Link
-        href="/admin/resk-assessment"
+        href="/admin/risk-assessment"
         className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
       >
         <ArrowLeft className="h-4 w-4 mr-2" />
@@ -317,8 +319,14 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       size="sm"
                       className="flex items-center"
                     >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
+                      <a
+                        href={data?.data?.primaryDriverFrontOfDrivingLicense}
+                        download={true}
+                        className="flex items-center "
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
+                      </a>
                     </Button>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -355,8 +363,14 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       size="sm"
                       className="flex items-center"
                     >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
+                      <a
+                        href={data?.data?.primaryDriverFrontOfDrivingLicense}
+                        download={true}
+                        className="flex items-center "
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
+                      </a>
                     </Button>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -393,8 +407,14 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       size="sm"
                       className="flex items-center"
                     >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
+                      <a
+                        href={data?.data?.primaryDriverFrontOfDrivingLicense}
+                        download={true}
+                        className="flex items-center "
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
+                      </a>
                     </Button>
                   </div>
                   <p className="text-sm text-muted-foreground">

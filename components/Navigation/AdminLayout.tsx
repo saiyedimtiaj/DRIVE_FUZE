@@ -93,7 +93,7 @@ const AdminLayout = () => {
             key={item.href}
             href={item.href}
             className={`px-3 py-1.5 mb-2 md:mb-0 rounded ${
-              pathname === item.href ? "bg-primary text-white" : ""
+              pathname === item.href ? "bg-[#800020] text-white" : ""
             }`}
           >
             {item.label}

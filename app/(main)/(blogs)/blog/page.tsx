@@ -15,9 +15,10 @@ export default async function BlogPage() {
         <div className="absolute inset-0">
           <div className="absolute right-0 w-1/2 h-full dots-pattern opacity-20"></div>
           <div
-            className="absolute right-0 w-3/4 h-full bg-gradient-to-l from-burgundy/10 to-transparent"
+            className="absolute right-0 w-3/4 h-full"
             style={{
-              background: "linear-gradient(to left, #FFFAF0, transparent)",
+              background:
+                "linear-gradient(to left, rgba(128, 0, 32, 0.1), transparent)",
             }}
           ></div>
         </div>
