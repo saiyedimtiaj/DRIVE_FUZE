@@ -80,7 +80,7 @@ const Payment = () => {
 
         <div>
           <h3 className="text-xl font-semibold mb-4">Main Driver Details</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-muted-foreground">Name</p>
               <p className="font-medium">{`${carData?.data?.customerInfo?.firstName} ${carData?.data?.customerInfo?.lastName}`}</p>
@@ -114,7 +114,7 @@ const Payment = () => {
                 <h3 className="text-xl font-semibold mb-4">
                   Additional Driver Details
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-muted-foreground">Name</p>
                     <p className="font-medium">{`${carData?.data?.aditionalDriverInfo?.firstName} ${carData?.data?.aditionalDriverInfo?.lastName}`}</p>

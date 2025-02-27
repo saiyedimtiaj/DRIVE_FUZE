@@ -158,7 +158,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
   console.log(data?.data);
 
   return (
-    <div className="container mx-auto px-4 pb-8">
+    <div className="container mx-auto pb-8">
       <Link
         href="/admin/risk-assessment"
         className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
@@ -171,9 +171,11 @@ export default function AssessMentDetails({ id }: { id: string }) {
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Customer Details */}
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Customer Details</h2>
-            <div className="grid grid-cols-2 gap-4">
+          <Card className="p-4 md:p-6">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">
+              Customer Details
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">Name</p>
                 <p className="font-medium space-x-2">
@@ -233,12 +235,74 @@ export default function AssessMentDetails({ id }: { id: string }) {
             </div>
           </Card>
 
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Verification Checks</h2>
+          {data?.data?.requestId?.aditionalDriver === "yes" && (
+            <Card className="p-4 md:p-6">
+              <h2 className="text-xl md:text-2xl font-bold mb-6">
+                Aditional Driver Details
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">Name</p>
+                  <p className="font-medium space-x-2">
+                    <span>
+                      {" "}
+                      {data?.data?.requestId?.aditionalDriverInfo?.firstName}
+                    </span>
+
+                    <span>
+                      {data?.data?.requestId?.aditionalDriverInfo?.lastName}
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Gender</p>
+                  <p className="font-medium">
+                    {data?.data?.requestId?.aditionalDriverInfo?.gender}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">
+                    License Number
+                  </p>
+                  {data?.data?.requestId?.aditionalDriverInfo?.licenseNumber}
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Email</p>
+                  {data?.data?.requestId?.aditionalDriverInfo?.email}
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Phone</p>
+                  {data?.data?.requestId?.aditionalDriverInfo?.phone}
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">
+                    Employment Status
+                  </p>
+                  <p className="font-medium">
+                    {
+                      data?.data?.requestId?.aditionalDriverInfo
+                        ?.employmentStatus
+                    }
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Job Title</p>
+                  <p className="font-medium">
+                    {data?.data?.requestId?.aditionalDriverInfo?.jobTitle}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          <Card className="p-4 md:p-6">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">
+              Verification Checks
+            </h2>
 
             <div className="space-y-6">
               {/* Identity Check */}
-              <div className="flex items-center justify-between">
+              <div className="flex md:flex-row flex-col-reverse gap-5 md:gap-0 md:items-center justify-between">
                 <div className="space-y-1">
                   <label className="text-sm font-medium">Identity Check</label>
                   <Select
@@ -247,7 +311,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       handleStatusChange("identityCheck", value)
                     }
                   >
-                    <SelectTrigger className="w-[200px]">
+                    <SelectTrigger className="w-full md:w-[200px]">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -272,7 +336,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
                     handleStatusChange("DVLACheck", value)
                   }
                 >
-                  <SelectTrigger className="w-[200px]">
+                  <SelectTrigger className="w-full md:w-[200px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -292,7 +356,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
                     handleStatusChange("creditCheck", value)
                   }
                 >
-                  <SelectTrigger className="w-[200px]">
+                  <SelectTrigger className="w-full md:w-[200px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -305,20 +369,18 @@ export default function AssessMentDetails({ id }: { id: string }) {
             </div>
           </Card>
 
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Document Verification</h2>
+          <Card className="p-4 md:p-6">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">
+              Document Verification
+            </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Driving License Front */}
               <div className="space-y-4">
-                <div className="p-6 border-2 border-dashed rounded-lg">
+                <div className="p-3 md:p-6 border-2 border-dashed rounded-lg">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-medium">Driving License Front</h3>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex items-center"
-                    >
+                    <Button variant="outline" size="sm">
                       <a
                         href={data?.data?.primaryDriverFrontOfDrivingLicense}
                         download={true}
@@ -355,7 +417,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
 
               {/* Driving License Back */}
               <div className="space-y-4">
-                <div className="p-6 border-2 border-dashed rounded-lg">
+                <div className="p-3 md:p-6 border-2 border-dashed rounded-lg">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-medium">Driving License Back</h3>
                     <Button
@@ -364,7 +426,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       className="flex items-center"
                     >
                       <a
-                        href={data?.data?.primaryDriverFrontOfDrivingLicense}
+                        href={data?.data?.primaryDriverBackOfDrivingLicense}
                         download={true}
                         className="flex items-center "
                       >
@@ -399,7 +461,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
 
               {/* Proof of Address */}
               <div className="space-y-4">
-                <div className="p-6 border-2 border-dashed rounded-lg">
+                <div className="p-3 md:p-6 border-2 border-dashed rounded-lg">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-medium">Proof of Address</h3>
                     <Button
@@ -408,7 +470,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       className="flex items-center"
                     >
                       <a
-                        href={data?.data?.primaryDriverFrontOfDrivingLicense}
+                        href={data?.data?.primaryDriverProofOfAddress}
                         download={true}
                         className="flex items-center "
                       >
@@ -442,11 +504,99 @@ export default function AssessMentDetails({ id }: { id: string }) {
               </div>
             </div>
           </Card>
+
+          {data?.data?.requestId?.aditionalDriver === "yes" && (
+            <Card className="p-4 md:p-6">
+              <h2 className="text-xl md:text-2xl font-bold mb-6">
+                Aditional Driver Document Verification
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Driving License Front */}
+                <div className="space-y-4">
+                  <div className="p-3 md:p-6 border-2 border-dashed rounded-lg">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-medium">Driving License Front</h3>
+                      <Button variant="outline" size="sm">
+                        <a
+                          href={
+                            data?.data?.additionalDriverFrontOfDrivingLicense
+                          }
+                          download={true}
+                          className="flex items-center "
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </a>
+                      </Button>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      File: driving-license-front.jpg
+                    </p>
+                  </div>
+                </div>
+
+                {/* Driving License Back */}
+                <div className="space-y-4">
+                  <div className="p-3 md:p-6 border-2 border-dashed rounded-lg">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-medium">Driving License Back</h3>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center"
+                      >
+                        <a
+                          href={
+                            data?.data?.additionalDriverBackOfDrivingLicense
+                          }
+                          download={true}
+                          className="flex items-center "
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </a>
+                      </Button>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      File: driving-license-back.jpg
+                    </p>
+                  </div>
+                </div>
+
+                {/* Proof of Address */}
+                <div className="space-y-4">
+                  <div className="p-3 md:p-6 border-2 border-dashed rounded-lg">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-medium">Proof of Address</h3>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center"
+                      >
+                        <a
+                          href={data?.data?.additionalDriverProofOfAddress}
+                          download={true}
+                          className="flex items-center "
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </a>
+                      </Button>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      File: proof-of-address.jpg
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
         </div>
 
         {/* Risk Score Summary */}
         <div className="space-y-6">
-          <Card className="p-6">
+          <Card className="p-4 md:p-6">
             <h2 className="text-xl font-bold mb-6">Risk Score</h2>
 
             <div className="space-y-3">
@@ -493,7 +643,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
             </div>
           </Card>
 
-          <Card className="p-6">
+          <Card className="p-4 md:p-6">
             <h3 className="font-semibold mb-4">Risk Score Breakdown</h3>
             <div className="space-y-2 text-sm">
               <p>• Identity Check: 20 points</p>

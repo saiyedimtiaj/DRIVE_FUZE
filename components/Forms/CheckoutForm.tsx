@@ -144,12 +144,16 @@ export default function CheckoutForm({
         <CardElement id="card-element" />
         <div className="flex justify-between pt-6">
           <Link href={`/subscribe/${id}/booking/${bookingId}/summary`}>
-            <Button type="button" variant="outline">
+            <Button
+              className="text-xs md:text-base"
+              type="button"
+              variant="outline"
+            >
               Back
             </Button>
           </Link>
           <Button
-            className="bg-burgundy hover:bg-burgundy/90 text-white"
+            className="bg-burgundy text-xs md:text-base hover:bg-burgundy/90 text-white"
             disabled={isLoading || !stripe || !elements}
             id="submit"
             type="submit"
