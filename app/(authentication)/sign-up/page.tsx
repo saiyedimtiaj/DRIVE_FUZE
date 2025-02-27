@@ -26,7 +26,7 @@ export default function SignUpPage({
               Already have an account?{" "}
               <Button variant="link" className="px-0">
                 <Link
-                  href={`/sign-up?redirect=${encodeURIComponent(redirectUrl)}`}
+                  href={`/sign-in?redirect=${encodeURIComponent(redirectUrl)}`}
                   className="font-medium text-burgundy hover:text-burgundy/90"
                 >
                   Sign in

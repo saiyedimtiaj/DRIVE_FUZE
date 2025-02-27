@@ -53,7 +53,7 @@ export const logInUser = async (userData: {
       });
       cookies().set("refreshToken", data?.data?.refreshToken, {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: "strict",
         maxAge: 365 * 24 * 60 * 60 * 1000,
       });
