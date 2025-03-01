@@ -12,6 +12,7 @@ import {
   Banknote,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const dealerLogos = [
   {
@@ -202,13 +203,15 @@ export default function DealersPage() {
           <h2 className="text-3xl font-bold mb-6">
             Don&apos;t Miss Out – Join the Future of Car Subscription Today!
           </h2>
-          <Button
-            size="lg"
-            className="bg-burgundy hover:bg-burgundy/90 text-white"
-          >
-            Sign Up as a Partner
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link href="/sign-up">
+            <Button
+              size="lg"
+              className="bg-burgundy hover:bg-burgundy/90 text-white"
+            >
+              Sign Up as a Partner
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </section>
     </div>

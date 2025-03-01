@@ -16,7 +16,7 @@ const HomeHero = () => {
       <div className="relative container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between py-16">
         {/* Text Section */}
         <div className="lg:w-2/5 relative z-10 text-center lg:text-left mb-8 lg:mb-0">
-          <h1 className="text-2xl text-start sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-6 pt-10 leading-tight">
+          <h1 className="text-[27px] text-start sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-6 pt-10 leading-tight">
             Car subscription is:
             <WordEffect />
           </h1>
@@ -33,10 +33,12 @@ const HomeHero = () => {
                 Choose your car
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8">
-              Learn more
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link href={"/how-it-works"}>
+              <Button size="lg" variant="outline" className="text-lg px-8">
+                Learn more
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
 

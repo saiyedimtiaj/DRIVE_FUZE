@@ -34,7 +34,7 @@ const page = () => {
         <h2 className="text-3xl font-bold text-burgundy mb-4">
           Ready to Get Started?
         </h2>
-        <p className="text-lg text-primary/80 mb-8 max-w-2xl mx-auto">
+        <p className="text-base md:text-lg px-2 text-primary/80 mb-8 max-w-2xl mx-auto">
           Join thousands of satisfied customers who have already made the switch
           to car subscription.
         </p>
