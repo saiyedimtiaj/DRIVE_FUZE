@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Info, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,6 +23,7 @@ export default function FulfillmentDetails() {
   const { id } = useParams();
   const { data, isLoading, refetch } = useGetSinglePreparetion(id as string);
   const { mutate, isPending } = useSetAwatingDelivery();
+  const route = useRouter();
 
   const handleStatusUpdate = () => {
     mutate(
@@ -34,7 +35,10 @@ export default function FulfillmentDetails() {
             description: data?.message,
             variant: data?.success ? "default" : "destructive",
           });
-          refetch();
+          if (data?.success) {
+            route.push(`/admin/transactions/${id}/delivery`);
+            refetch();
+          }
         },
       }
     );
@@ -160,7 +164,7 @@ export default function FulfillmentDetails() {
                 </span>
               </div>
             </div>
-            {data?.data?.status !== "Awating Delivery" && (
+            {data?.data?.status === "In Progress" && (
               <Button
                 className="w-full mt-7"
                 disabled={isPending}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGetSingleRequestsQuery } from "@/hooks/request.hooks";
 import UserRequestStatus from "./UserRequestStatus";
 import LoaderScreen from "../Shared/Loader";
@@ -12,6 +12,7 @@ export default function SubscriptionRequestDetails() {
   const { data: requestData, isLoading: isReqLoading } =
     useGetSingleRequestsQuery(id as string);
   const [currentStep, setCurrentStep] = useState(1);
+  const route = useRouter();
 
   useEffect(() => {
     if (requestData?.data?.status === "Pending") {
@@ -20,6 +21,12 @@ export default function SubscriptionRequestDetails() {
       setCurrentStep(2);
     }
   }, [requestData]);
+
+  useEffect(() => {
+    if (requestData?.data?.status === "Approved") {
+      route.push(`/dashboard/subscription-request/${id}/preparetion`);
+    }
+  }, [route, requestData?.data?.status, id]);
 
   if (isReqLoading) return <LoaderScreen />;
 

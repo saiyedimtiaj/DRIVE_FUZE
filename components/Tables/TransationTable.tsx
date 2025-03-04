@@ -142,7 +142,8 @@ function TrasntionTable() {
               <Link
                 href={
                   row.original?.status === "In Progress" ||
-                  row.original?.status === "Awating Delivery"
+                  row.original?.status === "Awating Delivery" ||
+                  row.original.status == "Ready for Delivery"
                     ? `/admin/transactions/${row.original?._id}/preparetion`
                     : row.original?.status === "Confirmation For Delivery" ||
                       row.original?.status === "Delivered"

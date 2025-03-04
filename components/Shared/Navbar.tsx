@@ -63,19 +63,19 @@ function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {[
-              "Subscribe",
-              "How It Works",
-              "Dealers",
-              "Blog",
-              "News",
-              "FAQ",
-            ].map((item) => (
+              { label: "Subscribe", href: "/subscribe" },
+              { label: "How It Works", href: "/how-it works" },
+              { label: "Dealers", href: "/be-a-dealers" },
+              { label: "Blog", href: "/blog" },
+              { label: "News", href: "/news" },
+              { label: "FAQ", href: "/faq" },
+            ].map((item, idx) => (
               <Link
-                key={item}
-                href={`/${item.toLowerCase().replace(/ /g, "-")}`}
+                key={idx}
+                href={item.href}
                 className="text-sm font-medium text-primary/80 hover:text-primary transition-colors"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -117,19 +117,19 @@ function Navbar() {
               <SheetContent className="p-4">
                 <div className="flex flex-col space-y-4 mt-8">
                   {[
-                    "Subscribe",
-                    "How It Works",
-                    "Dealers",
-                    "Blog",
-                    "News",
-                    "FAQ",
-                  ].map((item) => (
+                    { label: "Subscribe", href: "/subscribe" },
+                    { label: "How It Works", href: "/how-it works" },
+                    { label: "Dealers", href: "/be-a-dealers" },
+                    { label: "Blog", href: "/blog" },
+                    { label: "News", href: "/news" },
+                    { label: "FAQ", href: "/faq" },
+                  ].map((item, index) => (
                     <Link
-                      key={item}
-                      href={`/${item.toLowerCase().replace(/ /g, "-")}`}
+                      key={index}
+                      href={item.href}
                       className="text-lg font-medium text-primary/80 hover:text-primary transition-colors"
                     >
-                      {item}
+                      {item.label}
                     </Link>
                   ))}
                   {user ? (

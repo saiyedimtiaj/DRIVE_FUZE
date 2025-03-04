@@ -1,7 +1,7 @@
 "use client";
 
 import { format, parseISO } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -14,7 +14,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   useGetSingleRequestsQuery,
   useGetUserRequestDetails,
@@ -40,6 +40,7 @@ export default function UserSubReqDetails() {
   const [showDeliveryDialog, setShowDeliveryDialog] = useState(false);
   const [selectedDeliveryDate, setSelectedDeliveryDate] = useState<string>("");
   const [selectedDeliveryTime, setSelectedDeliveryTime] = useState<string>("");
+  const route = useRouter();
 
   // Generate available delivery dates (next 10 days)
   const getAvailableDeliveryDates = () => {
@@ -60,6 +61,12 @@ export default function UserSubReqDetails() {
 
     return dates;
   };
+
+  useEffect(() => {
+    if (requestData?.data?.status === "Awating Delivery") {
+      route.push(`/dashboard/subscription-request/${id}/delivery`);
+    }
+  }, [requestData?.data?.status, route, id]);
 
   // Generate available delivery times (9am-5pm)
   const getAvailableDeliveryTimes = () => {

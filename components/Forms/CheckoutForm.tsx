@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { FormEvent, useState } from "react";
 import { useUser } from "@/lib/user.provider";
@@ -17,7 +18,7 @@ export default function CheckoutForm({
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useUser();
-  const { mutate: createConfirmPayment } = useCreatePayment();
+  const { mutate: createConfirmPayment, isSuccess } = useCreatePayment();
   const { id, bookingId } = useParams();
   const { data, isLoading: isPaymentLoading } = useGetPayment(
     bookingId as string
@@ -52,6 +53,9 @@ export default function CheckoutForm({
           billing_details: {
             email: user?.email,
             name: `${user?.firstName} ${user?.lastName}`,
+            address: {
+              postal_code: "12345",
+            },
           },
         });
 
@@ -141,7 +145,12 @@ export default function CheckoutForm({
         payments from your card in accordance with our terms and conditions.{" "}
       </p>
       <form onSubmit={handleSubmit}>
-        <CardElement id="card-element" />
+        <CardElement
+          id="card-element"
+          options={{
+            hidePostalCode: false,
+          }}
+        />
         <div className="flex justify-between pt-6">
           <Link href={`/subscribe/${id}/booking/${bookingId}/summary`}>
             <Button
@@ -154,7 +163,7 @@ export default function CheckoutForm({
           </Link>
           <Button
             className="bg-burgundy text-xs md:text-base hover:bg-burgundy/90 text-white"
-            disabled={isLoading || !stripe || !elements}
+            disabled={isLoading || !stripe || !elements || isSuccess}
             id="submit"
             type="submit"
           >

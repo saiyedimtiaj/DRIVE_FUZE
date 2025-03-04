@@ -11,7 +11,6 @@ import { useGetSingleDealivery } from "@/hooks/delivery.hooks";
 import Image from "next/image";
 import { useCreateSubsctiption } from "@/hooks/subscription.hooks";
 import LoaderScreen from "../Shared/Loader";
-import { handleDownloadPdf } from "@/lib/utils";
 
 export default function DeliveryDetails() {
   const { id } = useParams();
@@ -53,7 +52,9 @@ export default function DeliveryDetails() {
                   Confirmed Delivery Date & Time
                 </Label>
                 <p className="font-medium mt-1">
-                  {new Date(data?.data?.confirmDeliveryDate).toLocaleString()}
+                  {data?.data?.confirmDeliveryDate
+                    ? new Date(data?.data?.confirmDeliveryDate).toLocaleString()
+                    : "Not select yet!"}
                 </p>
               </div>
 
@@ -62,21 +63,25 @@ export default function DeliveryDetails() {
                   Car PDI Delivery Document
                 </Label>
                 <div className="mt-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-2"
-                  >
-                    <a
-                      href={data?.data?.pdiDocument?.url}
-                      className="text-burgundy hover:text-burgundy/80 font-medium flex items-center gap-2"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {data?.data?.pdiDocument?.url ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-2"
                     >
-                      <Download className="h-4 w-4" />
-                      delivery-pdi-document.pdf
-                    </a>
-                  </Button>
+                      <a
+                        href={data?.data?.pdiDocument?.url}
+                        className="text-burgundy hover:text-burgundy/80 font-medium flex items-center gap-2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Download className="h-4 w-4" />
+                        delivery-pdi-document.pdf
+                      </a>
+                    </Button>
+                  ) : (
+                    "Not upload Yet"
+                  )}
                 </div>
               </div>
 
@@ -84,34 +89,42 @@ export default function DeliveryDetails() {
                 <Label className="text-muted-foreground">
                   Car Photos at Handover
                 </Label>
-                <div className="grid grid-cols-3 gap-4 mt-2">
-                  {data?.data?.carImages?.map(
-                    (photo: { url: string }, index: number) => (
-                      <div key={index} className="relative aspect-square">
-                        <Image
-                          src={photo?.url}
-                          alt={`Handover photo ${index + 1}`}
-                          className="object-cover w-full h-full rounded-lg"
-                          fill
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
+                {data?.data?.carImages ? (
+                  <div className="grid grid-cols-3 gap-4 mt-2">
+                    {data?.data?.carImages?.map(
+                      (photo: { url: string }, index: number) => (
+                        <div key={index} className="relative aspect-square">
+                          <Image
+                            src={photo?.url}
+                            alt={`Handover photo ${index + 1}`}
+                            className="object-cover w-full h-full rounded-lg"
+                            fill
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
+                ) : (
+                  <p>Not upload yet</p>
+                )}
               </div>
 
               <Separator />
 
               <div>
                 <Label className="text-muted-foreground">Dealer Comments</Label>
-                <p className="mt-1">{data?.data?.dealerComment}</p>
+                <p className="mt-1">
+                  {data?.data?.dealerComment || "Not given yet!"}
+                </p>
               </div>
 
               <div>
                 <Label className="text-muted-foreground">
                   Customer Comments
                 </Label>
-                <p className="mt-1">{data?.data?.customerComment}</p>
+                <p className="mt-1">
+                  {data?.data?.customerComment || "Not given yet!"}
+                </p>
               </div>
 
               <Separator />
@@ -125,13 +138,19 @@ export default function DeliveryDetails() {
                     <p className="text-sm text-muted-foreground">
                       Starting Mileage
                     </p>
-                    <p className="font-medium">
-                      {data?.data?.startingMiles?.toLocaleString()} miles
-                    </p>
+                    {data?.data?.startingMiles ? (
+                      <p className="font-medium">
+                        {data?.data?.startingMiles?.toLocaleString()} miles
+                      </p>
+                    ) : (
+                      "Not given yet!"
+                    )}
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Fuel Level</p>
-                    <p className="font-medium">{data?.data?.fuelLabel}</p>
+                    <p className="font-medium">
+                      {data?.data?.fuelLabel || "Not given yet"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -141,18 +160,25 @@ export default function DeliveryDetails() {
                   Signed Subscription Agreement
                 </Label>
                 <div className="mt-1">
-                  <Button variant="outline" size="sm">
-                    <a
-                      href={data?.data?.subscriptionAggrement?.url}
-                      className="text-burgundy hover:text-burgundy/80 font-medium flex items-center gap-2"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {data?.data?.subscriptionAggrement?.url ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-2"
                     >
-                      {" "}
-                      <Download className="h-4 w-4" />
-                      subscription-agreement.pdf
-                    </a>
-                  </Button>
+                      <a
+                        href={data?.data?.subscriptionAggrement?.url}
+                        className="text-burgundy hover:text-burgundy/80 font-medium flex items-center gap-2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Download className="h-4 w-4" />
+                        delivery-pdi-document.pdf
+                      </a>
+                    </Button>
+                  ) : (
+                    "Not upload Yet"
+                  )}
                 </div>
               </div>
             </div>
@@ -176,7 +202,7 @@ export default function DeliveryDetails() {
                       : "bg-green-100 text-green-800"
                   }`}
                 >
-                  {data?.data?.status}
+                  {data?.data?.status ? data?.data?.status : "Awating Delivery"}
                 </span>
               </div>
 

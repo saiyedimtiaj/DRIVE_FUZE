@@ -128,7 +128,7 @@ const Payment = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">Phone</p>
                     <p className="font-medium">
-                      {carData?.data?.aditionalDriverInfo?.phoneNumber}
+                      {carData?.data?.aditionalDriverInfo?.phone}
                     </p>
                   </div>
                   <div>

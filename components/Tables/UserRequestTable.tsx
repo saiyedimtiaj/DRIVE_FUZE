@@ -109,6 +109,8 @@ function UserRequestTable() {
                   ? `/dashboard/subscription-request/${row.original._id}/preparetion `
                   : row.original?.status === "In Progress"
                   ? `/dashboard/subscription-request/${row.original._id}/preparetion `
+                  : row.original?.status === "Approved"
+                  ? `/dashboard/subscription-request/${row.original._id}/preparetion `
                   : row.original.status === "Pending"
                   ? `/dashboard/subscription-request/${row.original._id}`
                   : `/dashboard/subscription-request/${row.original._id}/delivery `

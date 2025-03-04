@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Info, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -54,12 +54,19 @@ export default function DealerPrepDetails() {
     string | null
   >(null);
   const { mutate: updatePrep, isPending } = useUpdatePrep();
+  const route = useRouter();
 
   const handlePDIUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       setPdiDocument(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    if (data?.data?.status == "Awating Delivery") {
+      route.push(`/dealer/fulfillment/${id}/delivery`);
+    }
+  }, [data?.data?.status, id, route]);
 
   const handleCarStatusChange = (checked: boolean) => {
     if (checked && !earliestDeliveryDateTime) {
@@ -126,8 +133,6 @@ export default function DealerPrepDetails() {
       description: "Delivery slot confirmed",
     });
   };
-
-  console.log(data);
 
   const handleProposeAlternative = () => {
     if (!alternativeDateTime) {

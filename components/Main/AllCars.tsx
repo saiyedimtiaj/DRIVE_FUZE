@@ -33,7 +33,7 @@ const AllCars = ({
   });
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["cars", queryParams, currentPage],
     queryFn: async () => {
       const queryString = new URLSearchParams({
@@ -76,6 +76,9 @@ const AllCars = ({
       setCurrentPage((prev) => prev - 1);
     }
   };
+  console.log(data);
+
+  console.log(error);
 
   return (
     <div>

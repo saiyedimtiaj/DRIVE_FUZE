@@ -20,6 +20,8 @@ import { useDeclineRequest, useTakePayment } from "@/hooks/payment.hooks";
 import { toast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { useUser } from "@/lib/user.provider";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const TransactionDetails = () => {
   const { id } = useParams();
@@ -28,6 +30,23 @@ const TransactionDetails = () => {
   const { mutate: declineRequest, isPending: isDeclinePanding } =
     useDeclineRequest();
   const { user } = useUser();
+  const route = useRouter();
+
+  useEffect(() => {
+    if (user?.role === "dealer") {
+      if (data?.data?.status === "Approved") {
+        route.push(`/dealer/fulfillment/${id}/preparetion`);
+      }
+    }
+    if (user?.role === "admin") {
+      if (
+        data?.data?.status === "Approved" ||
+        data?.data?.status === "Ready for Delivery"
+      ) {
+        route.push(`/admin/transactions/${id}/preparetion`);
+      }
+    }
+  }, [route, user, data?.data?.status, id]);
 
   const handleDecline = () => {
     declineRequest(id as string, {
@@ -37,6 +56,7 @@ const TransactionDetails = () => {
             title: "Success",
             description: "The subscription request has been decline!",
           });
+          route.push(`/admin/transactions/${id}/preparetion`);
         } else {
           toast({
             title: "Failed",

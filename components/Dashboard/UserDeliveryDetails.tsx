@@ -20,7 +20,11 @@ import { toast } from "@/hooks/use-toast";
 export default function UserDeliveryDetails() {
   const [customerComment, setCustomerComment] = useState("");
   const { id } = useParams();
-  const { data, isLoading } = useGetUserRequestDetails(id as string);
+  const {
+    data,
+    isLoading,
+    refetch: reqRefetch,
+  } = useGetUserRequestDetails(id as string);
   const {
     data: prepData,
     isLoading: isPrepLoading,
@@ -41,6 +45,7 @@ export default function UserDeliveryDetails() {
             variant: data?.success ? "default" : "destructive",
           });
           refetch();
+          reqRefetch();
         },
       }
     );

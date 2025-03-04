@@ -21,6 +21,7 @@ import {
 } from "@/hooks/delivery.hooks";
 import Image from "next/image";
 import LoaderScreen from "../Shared/Loader";
+import CRSelect from "../Shared/CRSelect";
 
 export default function CreateDelivery() {
   const { id } = useParams();
@@ -219,7 +220,9 @@ export default function CreateDelivery() {
 
                 <div>
                   <Label>Customer Comments</Label>
-                  <p className="mt-1">{data?.data?.customerComment || ""}</p>
+                  <p className="mt-1">
+                    {data?.data?.customerComment || "Not given yet!"}
+                  </p>
                 </div>
 
                 <Separator />
@@ -256,11 +259,18 @@ export default function CreateDelivery() {
                           </p>
                         </>
                       ) : (
-                        <CRInput
+                        <CRSelect
                           name="fuelLabel"
                           label="Fuel Level"
                           required
                           placeholder="e.g., Full, 3/4, 1/2"
+                          items={[
+                            { name: "Empty", value: "Empty" },
+                            { name: "Quarter", value: "Quarter" },
+                            { name: "Half", value: "Half" },
+                            { name: "Three Quarters", value: "Three Quarters" },
+                            { name: "Full", value: "Full" },
+                          ]}
                         />
                       )}
                     </div>

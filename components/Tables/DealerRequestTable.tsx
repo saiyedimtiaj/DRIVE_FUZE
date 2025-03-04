@@ -118,7 +118,9 @@ function DealerRequestTable() {
                   row.original.status === "In Progress" ||
                   row.original.status === "Ready for Delivery"
                     ? `/dealer/fulfillment/${row.original._id}/preparetion`
-                    : row.original.status === "Awating Delivery"
+                    : row.original.status === "Awating Delivery" ||
+                      row.original?.status === "Confirmation For Delivery" ||
+                      row.original.status == "Delivered"
                     ? `/dealer/fulfillment/${row.original._id}/delivery`
                     : `/dealer/fulfillment/${row.original._id}/`
                 }
