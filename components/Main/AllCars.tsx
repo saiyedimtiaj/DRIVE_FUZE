@@ -51,6 +51,9 @@ const AllCars = ({
     },
   });
 
+  console.log(data);
+  console.log(error);
+
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
