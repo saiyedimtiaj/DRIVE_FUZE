@@ -67,7 +67,7 @@ function TestimonialTable() {
 
   const columns: ColumnDef<TTestimonial>[] = [
     {
-      accessorKey: "Customer",
+      accessorKey: "customerName",
       header: "Customer",
       cell: ({ row }) => (
         <div className="capitalize">{row.original.customerName}</div>
@@ -164,10 +164,12 @@ function TestimonialTable() {
     <div className="w-full">
       <div className="flex items-center justify-between gap-2 py-4">
         <Input
-          placeholder="Search by title"
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Search by Customer"
+          value={
+            (table.getColumn("customerName")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("customerName")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

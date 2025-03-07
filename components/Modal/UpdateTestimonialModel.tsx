@@ -86,17 +86,17 @@ const UpdateTestimonialModel = ({
                   <CRInput label="Role" name="role" required />
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <div className="w-full">
                   <CRSelect
                     items={categories}
                     name="rating"
-                    label="Category"
+                    label="Rating"
                     required
                   />
                 </div>
                 <div className="w-full">
-                  <CRInput type="url" required name="image" label="Image Url" />
+                  <CRInput label="Delearship" name="delearship" />
                 </div>
               </div>
               <div>

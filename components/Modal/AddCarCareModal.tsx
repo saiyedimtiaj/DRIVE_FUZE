@@ -1,3 +1,5 @@
+"use client";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,20 +9,29 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import CRform from "../Shared/CRForm";
-import { FieldValues, SubmitHandler } from "react-hook-form";
-import CRInput from "../Shared/CRInput";
-import CRTextArea from "../Shared/CRTextArea";
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  FieldValues,
+} from "react-hook-form";
 import { ScrollArea } from "../ui/scroll-area";
-import CRSelect from "../Shared/CRSelect";
 import { toast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react"; // Loading spinner
+import { Loader2 } from "lucide-react";
 import { Label } from "../ui/label";
 import Link from "next/link";
-import { useState } from "react";
-import CRMultiFile from "../Shared/CRMultiFile";
 import { useCreateCarCare } from "@/hooks/carcare.hooks";
 import { useUser } from "@/lib/user.provider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import CRMultiFile from "../Shared/CRMultiFile";
 
 const commonCarIssues = [
   { name: "Engine warning light on", value: "Engine warning light on" },
@@ -36,6 +47,11 @@ const commonCarIssues = [
   { name: "Others", value: "Others" },
 ];
 
+const issueTypes = [
+  { name: "Car Care", value: "carcare" },
+  { name: "General Support", value: "generalsupport" },
+];
+
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,31 +62,27 @@ const AddCarCareModal = ({ isOpen, setIsOpen, refetch }: Props) => {
   const { mutate: createCarCare, isPending } = useCreateCarCare();
   const [images, setImages] = useState<(File | string)[]>([]);
   const { user } = useUser();
+  const { control, handleSubmit, watch } = useForm();
+  const selectedType = watch("typeOfIssue", "carcare");
 
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     const payload = { ...data, userId: user?._id };
     formData.append("data", JSON.stringify(payload));
-
-    for (const image of images) {
-      formData.append("images", image);
-    }
+    images.forEach((image) => formData.append("images", image));
 
     createCarCare(formData, {
       onSuccess: (data) => {
+        console.log(data);
+        toast({
+          title: data?.success
+            ? "Ticket Created Successfully"
+            : "Failed to Create Ticket",
+          description: data?.message,
+          variant: data?.success ? "default" : "destructive",
+        });
         if (data?.success) {
-          toast({
-            title: "Ticket Created Successfully",
-            description: data?.message,
-          });
           refetch();
-          setIsOpen(false);
-        } else {
-          toast({
-            title: "Failed to Create Ticket",
-            description: data?.message,
-            variant: "destructive",
-          });
           setIsOpen(false);
         }
       },
@@ -82,82 +94,182 @@ const AddCarCareModal = ({ isOpen, setIsOpen, refetch }: Props) => {
       <DialogContent className="w-full max-w-lg bg-white p-6 rounded-md shadow-lg">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">
-            Add New News
+            Add New Ticket
           </DialogTitle>
         </DialogHeader>
         <DialogDescription />
 
-        <CRform onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <ScrollArea className="h-72">
             <div className="space-y-2 px-3">
-              <div className="space-y-2">
-                <CRSelect
-                  label="Issue"
-                  required
-                  name="issue"
-                  items={commonCarIssues}
-                />
-              </div>
+              {/* Type of Issue */}
+              <Controller
+                control={control}
+                name="typeOfIssue"
+                rules={{ required: true }}
+                defaultValue="carcare"
+                render={({ field }) => (
+                  <div>
+                    <Label>Type of Issue</Label>
+                    <Select
+                      required
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {issueTypes.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              />
 
-              <div className="space-y-2">
-                <Link href={`https://what3words.com/outcasts.dozens.starters`}>
-                  <Button variant="link" className="p-0 -mb-2">
-                    Location (what3words or home)
-                  </Button>
-                </Link>
-                <CRInput
-                  required
-                  name="location"
-                  label="location"
-                  isNeedLabelShow={false}
-                />
-              </div>
+              {/* Issue */}
+              <Controller
+                control={control}
+                name="issue"
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <div>
+                    <Label>Issue</Label>
+                    <Select
+                      required
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Issue" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {commonCarIssues.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              />
 
-              <div className="space-y-2">
-                <CRInput
-                  required
-                  type="date"
-                  name="issueDate"
-                  label="Date of Issue"
-                />
-              </div>
+              {selectedType === "carcare" && (
+                <>
+                  {/* Location */}
+                  <Controller
+                    control={control}
+                    rules={{ required: selectedType === "carcare" }}
+                    name="location"
+                    render={({ field }) => (
+                      <div>
+                        <Link href="https://what3words.com/outcasts.dozens.starters">
+                          <Button
+                            variant="link"
+                            type="button"
+                            className="p-0 -mb-2"
+                          >
+                            Location (what3words or home)
+                          </Button>
+                        </Link>
+                        <Input
+                          required={selectedType === "carcare"}
+                          {...field}
+                        />
+                      </div>
+                    )}
+                  />
 
-              <div className="space-y-2">
-                <CRInput
-                  required
-                  placeholder="Describe any damage"
-                  name="damageDescription"
-                  label="Damage Description (N/A if none)"
-                />
-              </div>
+                  {/* Date of Issue */}
+                  <Controller
+                    control={control}
+                    name="issueDate"
+                    rules={{ required: selectedType === "carcare" }}
+                    render={({ field }) => (
+                      <div>
+                        <Label>Date of Issue</Label>
+                        <Input
+                          required={selectedType === "carcare"}
+                          type="date"
+                          {...field}
+                        />
+                      </div>
+                    )}
+                  />
 
-              <div className="space-y-2">
-                <CRSelect
-                  required
-                  name="priority"
-                  label="Priority Lavel"
-                  items={[
-                    { name: "High", value: "High" },
-                    { name: "Medium", value: "Medium" },
-                    { name: "Low", value: "Low" },
-                  ]}
-                />
-              </div>
-              <div className="space-y-2">
-                <CRTextArea
-                  required
-                  name="note"
-                  placeholder="Provide any additional details"
-                  label="Additional Notes"
-                />
-              </div>
+                  {/* Damage Description */}
+                  <Controller
+                    control={control}
+                    name="damageDescription"
+                    rules={{ required: selectedType === "carcare" }}
+                    render={({ field }) => (
+                      <div>
+                        <Label>Damage Description (N/A if none)</Label>
+                        <Input
+                          required={selectedType === "carcare"}
+                          {...field}
+                        />
+                      </div>
+                    )}
+                  />
 
+                  {/* Priority Level */}
+                </>
+              )}
+
+              <Controller
+                control={control}
+                name="priority"
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <div>
+                    <Label>Priority Level</Label>
+                    <Select
+                      required
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {["High", "Medium", "Low"].map((level) => (
+                          <SelectItem key={level} value={level}>
+                            {level}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              />
+
+              {/* Additional Notes */}
+              <Controller
+                control={control}
+                name="note"
+                render={({ field }) => (
+                  <div>
+                    <Label>Additional Notes</Label>
+                    <Textarea required {...field} />
+                  </div>
+                )}
+              />
+
+              {/* Upload Photos */}
               <div className="space-y-2">
                 <Label>Upload Photos</Label>
                 <CRMultiFile images={images} setImages={setImages} />
               </div>
             </div>
           </ScrollArea>
+
+          {/* Submit & Cancel Buttons */}
           <DialogFooter className="flex mt-4 flex-row items-center gap-4">
             <Button type="submit" className="bg-burgundy" disabled={isPending}>
               {isPending ? (
@@ -174,7 +286,7 @@ const AddCarCareModal = ({ isOpen, setIsOpen, refetch }: Props) => {
               Cancel
             </Button>
           </DialogFooter>
-        </CRform>
+        </form>
       </DialogContent>
     </Dialog>
   );

@@ -7,9 +7,11 @@ import Image from "next/image";
 const CRMultiFile = ({
   images,
   setImages,
+  required = false,
 }: {
   images: (File | string)[]; // Accept mixed type array
-  setImages: Dispatch<SetStateAction<(File | string)[]>>; // Ensure the setter supports mixed types
+  setImages: Dispatch<SetStateAction<(File | string)[]>>;
+  required?: boolean;
 }) => {
   // Handle image upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +47,7 @@ const CRMultiFile = ({
           accept="image/*"
           className="hidden"
           onChange={handleImageChange}
+          required={required}
         />
         <Label htmlFor="images" className="cursor-pointer">
           <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />

@@ -37,12 +37,11 @@ function RiskAssessmentTable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-
-  console.log(data);
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
 
   const columns: ColumnDef<TCustomerCheck>[] = [
     {
-      accessorKey: "Customer Name",
+      accessorKey: "CustomerName",
       header: "Customer Name",
       cell: ({ row }) => (
         <div className="capitalize">
@@ -61,10 +60,10 @@ function RiskAssessmentTable() {
       ),
     },
     {
-      accessorKey: "Email",
+      accessorKey: "email",
       header: "Email",
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.userId?.email}</div>
+        <div className="lowercase">{row.original?.userId?.email}</div>
       ),
     },
     {
@@ -79,25 +78,17 @@ function RiskAssessmentTable() {
     {
       accessorKey: "Risk Score",
       header: "Risk Score",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.original?.score}</div>
-      ),
+      cell: ({ row }) => <div>{row.original?.score}</div>,
     },
     {
       accessorKey: "Status",
       header: "Status",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.original?.status}</div>
-      ),
+      cell: ({ row }) => <div>{row.original?.status}</div>,
     },
     {
       accessorKey: "Last Checked",
       header: "Last Checked",
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.original?.updatedAt?.slice(0, 10)}
-        </div>
-      ),
+      cell: ({ row }) => <div>{row.original?.updatedAt?.slice(0, 10)}</div>,
     },
     {
       id: "Action",
@@ -123,8 +114,16 @@ function RiskAssessmentTable() {
     },
   ];
 
+  // Filter data based on search query
+  const filteredData = React.useMemo(() => {
+    if (!data?.data) return [];
+    return data.data.filter((item: TCustomerCheck) =>
+      item.userId?.email?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [data, searchQuery]);
+
   const table = useReactTable({
-    data: data?.data || [],
+    data: filteredData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -150,11 +149,9 @@ function RiskAssessmentTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search by Name"
-          value={(table.getColumn("Email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("Email")?.setFilterValue(event.target.value)
-          }
+          placeholder="Search by Email"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
           className="max-w-sm"
         />
       </div>

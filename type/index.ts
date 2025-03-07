@@ -205,7 +205,7 @@ export type TNews = {
 export type TTestimonial = {
   customerName: string;
   role: string;
-  image: string;
+  delearship: string;
   rating: string;
   testimonial: string;
   status: string;

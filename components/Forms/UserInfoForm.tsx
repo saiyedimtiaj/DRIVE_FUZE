@@ -165,7 +165,7 @@ export default function UserInfo() {
         </Card>
 
         {/* Address */}
-        <Card className="p-6 mt-7">
+        <Card className="p-4 md:p-6 mt-7">
           <h2 className="text-xl font-semibold mb-6">Address</h2>
           <div className="space-y-4">
             <div className="space-y-2">
@@ -191,7 +191,7 @@ export default function UserInfo() {
         </Card>
 
         {/* Documents */}
-        <Card className="p-6 mt-7">
+        <Card className="p-4 md:p-6 mt-7">
           <h2 className="text-xl font-semibold mb-6">Documents</h2>
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

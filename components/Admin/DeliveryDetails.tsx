@@ -37,6 +37,8 @@ export default function DeliveryDetails() {
     );
   };
 
+  console.log(data);
+
   if (isLoading) return <LoaderScreen />;
 
   return (
@@ -123,7 +125,8 @@ export default function DeliveryDetails() {
                   Customer Comments
                 </Label>
                 <p className="mt-1">
-                  {data?.data?.customerComment || "Not given yet!"}
+                  {data?.data?.preparationId?.customerComment ||
+                    "Not given yet!"}
                 </p>
               </div>
 

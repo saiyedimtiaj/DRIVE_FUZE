@@ -79,21 +79,27 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
         </DialogHeader>
         <DialogDescription />
         <ScrollArea className="h-72 px-3">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-muted-foreground">Location</p>
-              <p className="font-medium">{data?.data?.location}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Date of Issue</p>
-              <p className="font-medium">
-                {new Date(data?.data?.issueDate).toLocaleDateString()}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Damage</p>
-              <p className="font-medium">{data?.data?.damageDescription}</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data?.data?.location && (
+              <div>
+                <p className="text-sm text-muted-foreground">Location</p>
+                <p className="font-medium">{data?.data?.location}</p>
+              </div>
+            )}
+            {data?.data?.issueDate && (
+              <div>
+                <p className="text-sm text-muted-foreground">Date of Issue</p>
+                <p className="font-medium">
+                  {new Date(data?.data?.issueDate).toLocaleDateString()}
+                </p>
+              </div>
+            )}
+            {data?.data?.damageDescription && (
+              <div>
+                <p className="text-sm text-muted-foreground">Damage</p>
+                <p className="font-medium">{data?.data?.damageDescription}</p>
+              </div>
+            )}
             <div>
               <p className="text-sm text-muted-foreground">Priority Level</p>
               <span
@@ -110,7 +116,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
             </div>
           </div>
 
-          <div>
+          <div className="mt-5 mb-4">
             <p className="text-sm text-muted-foreground">Additional Notes</p>
             <p className="mt-1">{data?.data?.note}</p>
           </div>
@@ -135,7 +141,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
             </div>
           )}
 
-          <div className="space-y-4">
+          <div className="space-y-4 mt-3">
             <h3 className="font-semibold">Message History</h3>
             <ScrollArea className="space-y-4 h-[300px]">
               {data?.data?.messages?.map((message: TMessages) => (

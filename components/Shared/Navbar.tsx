@@ -64,7 +64,7 @@ function Navbar() {
           <div className="hidden md:flex items-center space-x-6">
             {[
               { label: "Subscribe", href: "/subscribe" },
-              { label: "How It Works", href: "/how-it works" },
+              { label: "How It Works", href: "/how-it-works" },
               { label: "Dealers", href: "/be-a-dealers" },
               { label: "Blog", href: "/blog" },
               { label: "News", href: "/news" },
@@ -118,7 +118,7 @@ function Navbar() {
                 <div className="flex flex-col space-y-4 mt-8">
                   {[
                     { label: "Subscribe", href: "/subscribe" },
-                    { label: "How It Works", href: "/how-it works" },
+                    { label: "How It Works", href: "/how-it-works" },
                     { label: "Dealers", href: "/be-a-dealers" },
                     { label: "Blog", href: "/blog" },
                     { label: "News", href: "/news" },

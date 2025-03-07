@@ -6,33 +6,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const testimonials = [
-  {
-    quote:
-      "We've seen a significant boost in revenue with minimal effort. The platform handles everything for us!",
-    author: "John Smith",
-    role: "General Manager",
-    dealership: "Premium Motors",
-  },
-  {
-    quote:
-      "Joining the platform has been seamless, and we've reached customers we couldn't before.",
-    author: "Sarah Johnson",
-    role: "Sales Director",
-    dealership: "City Cars",
-  },
-  {
-    quote:
-      "The subscription model has transformed our business. Our inventory turnover has never been better.",
-    author: "Michael Brown",
-    role: "Owner",
-    dealership: "Brown's Auto",
-  },
-];
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetAllTestimonial } from "@/hooks/testimonial.hooks";
+import { TTestimonial } from "@/type";
 
 const DealerTestomonialAndFaq = () => {
+  const { data, isLoading } = useGetAllTestimonial();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+
   return (
     <div>
       {/* Testimonials */}
@@ -43,38 +24,59 @@ const DealerTestomonialAndFaq = () => {
           </h2>
           <div className="max-w-3xl mx-auto">
             <div className="relative">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className={`transition-opacity duration-500 ${
-                    index === activeTestimonial
-                      ? "opacity-100"
-                      : "opacity-0 absolute inset-0"
-                  }`}
-                >
-                  <blockquote className="text-2xl font-medium text-center mb-8">
-                    &quot;{testimonial.quote}&quot;
-                  </blockquote>
-                  <div className="text-center">
-                    <p className="font-bold">{testimonial.author}</p>
-                    <p className="text-primary/60">{testimonial.role}</p>
-                    <p className="text-primary/60">{testimonial.dealership}</p>
+              {isLoading ? (
+                <div className="space-y-6">
+                  <Skeleton className="h-10 w-full" />
+                  <div className="text-center space-y-2">
+                    <Skeleton className="h-6 w-32 mx-auto" />
+                    <Skeleton className="h-4 w-24 mx-auto" />
+                    <Skeleton className="h-4 w-28 mx-auto" />
                   </div>
                 </div>
-              ))}
+              ) : (
+                data?.data
+                  ?.slice(0, 3)
+                  .map((testimonial: TTestimonial, index: number) => (
+                    <div
+                      key={index}
+                      className={`transition-opacity duration-500 ${
+                        index === activeTestimonial
+                          ? "opacity-100"
+                          : "opacity-0 absolute inset-0"
+                      }`}
+                    >
+                      <blockquote className="text-2xl font-medium text-center mb-8">
+                        &quot;{testimonial.testimonial}&quot;
+                      </blockquote>
+                      <div className="text-center">
+                        <p className="font-bold">{testimonial.customerName}</p>
+                        <p className="text-primary/60">{testimonial.role}</p>
+                        <p className="text-primary/60">
+                          {testimonial.delearship}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+              )}
             </div>
             <div className="flex justify-center space-x-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full ${
-                    index === activeTestimonial
-                      ? "bg-burgundy"
-                      : "bg-burgundy/20"
-                  }`}
-                  onClick={() => setActiveTestimonial(index)}
-                />
-              ))}
+              {isLoading
+                ? Array(3)
+                    .fill(null)
+                    .map((_, index) => (
+                      <Skeleton key={index} className="w-3 h-3 rounded-full" />
+                    ))
+                : data?.data?.map((_: never, index: number) => (
+                    <button
+                      key={index}
+                      className={`w-3 h-3 rounded-full ${
+                        index === activeTestimonial
+                          ? "bg-burgundy"
+                          : "bg-burgundy/20"
+                      }`}
+                      onClick={() => setActiveTestimonial(index)}
+                    />
+                  ))}
             </div>
           </div>
         </div>

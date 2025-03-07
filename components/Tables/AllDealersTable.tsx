@@ -57,8 +57,8 @@ function AllDealersTable() {
       ),
     },
     {
-      accessorKey: "Email",
-      header: "Email",
+      accessorKey: "email",
+      header: "email",
       cell: ({ row }) => (
         <div className="capitalize">{row.original?.email}</div>
       ),
@@ -146,10 +146,10 @@ function AllDealersTable() {
     <div className="w-full">
       <div className="flex items-center py-4 justify-between gap-3">
         <Input
-          placeholder="Search by Name"
-          value={(table.getColumn("Email")?.getFilterValue() as string) ?? ""}
+          placeholder="Search by Email"
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("Email")?.setFilterValue(event.target.value)
+            table.getColumn("email")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

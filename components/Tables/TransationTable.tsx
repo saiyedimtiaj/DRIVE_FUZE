@@ -37,6 +37,7 @@ function TrasntionTable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
 
   const columns: ColumnDef<TRequest>[] = [
     {
@@ -160,8 +161,15 @@ function TrasntionTable() {
     },
   ];
 
+  const filteredData = React.useMemo(() => {
+    if (!data?.data) return [];
+    return data.data.filter((item: TRequest) =>
+      item.carId?.model?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [data, searchQuery]);
+
   const table = useReactTable({
-    data: data?.data || [],
+    data: filteredData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -187,11 +195,9 @@ function TrasntionTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search by Name"
-          value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("model")?.setFilterValue(event.target.value)
-          }
+          placeholder="Search by Car Name"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
           className="max-w-sm"
         />
       </div>

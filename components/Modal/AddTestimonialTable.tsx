@@ -70,7 +70,7 @@ const CreateTestimonialModel = ({ isOpen, setIsOpen, refetch }: Props) => {
         <CRform onSubmit={handleSubmit}>
           <ScrollArea className="h-72">
             <div className="space-y-2 px-1">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center flex-col md:flex-row gap-2">
                 <div className="w-full">
                   <CRInput label="Customer Name" name="customerName" required />
                 </div>
@@ -78,17 +78,17 @@ const CreateTestimonialModel = ({ isOpen, setIsOpen, refetch }: Props) => {
                   <CRInput label="Role" name="role" required />
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <div className="w-full">
                   <CRSelect
                     items={categories}
                     name="rating"
-                    label="Category"
+                    label="Rating"
                     required
                   />
                 </div>
                 <div className="w-full">
-                  <CRInput type="url" required name="image" label="Image Url" />
+                  <CRInput label="Delearship" name="delearship" />
                 </div>
               </div>
               <div>
