@@ -132,35 +132,49 @@ const AddCarCareModal = ({ isOpen, setIsOpen, refetch }: Props) => {
               />
 
               {/* Issue */}
-              <Controller
-                control={control}
-                name="issue"
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <div>
-                    <Label>Issue</Label>
-                    <Select
-                      required
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Issue" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {commonCarIssues.map((item) => (
-                          <SelectItem key={item.value} value={item.value}>
-                            {item.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              />
+
+              {selectedType === "generalsupport" && (
+                <Controller
+                  control={control}
+                  name="issue"
+                  rules={{ required: selectedType === "carcare" }}
+                  render={({ field }) => (
+                    <div>
+                      <Label>Issue</Label>
+                      <Input required={selectedType === "carcare"} {...field} />
+                    </div>
+                  )}
+                />
+              )}
 
               {selectedType === "carcare" && (
                 <>
+                  <Controller
+                    control={control}
+                    name="issue"
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <div>
+                        <Label>Issue</Label>
+                        <Select
+                          required
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Issue" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {commonCarIssues.map((item) => (
+                              <SelectItem key={item.value} value={item.value}>
+                                {item.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
+                  />
                   {/* Location */}
                   <Controller
                     control={control}
