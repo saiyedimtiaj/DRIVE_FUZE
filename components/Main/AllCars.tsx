@@ -32,7 +32,7 @@ const AllCars = ({
     conditionFilter: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
-
+  //jsdguidfsugnuasdfungb
   const { data, isLoading, error } = useQuery({
     queryKey: ["cars", queryParams, currentPage],
     queryFn: async () => {
