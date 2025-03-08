@@ -100,7 +100,7 @@ const ReturnForm = ({
             <>
               <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mt-2 mb-4">
                 <Image
-                  src={URL.createObjectURL(images[currentReturnPhoto])}
+                  src={URL?.createObjectURL(images[currentReturnPhoto])}
                   alt="Car return photo"
                   fill
                   className="object-cover"
