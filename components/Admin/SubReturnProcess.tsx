@@ -24,13 +24,13 @@ const SubReturnProcess = ({
   setCurrentStep: Dispatch<SetStateAction<number>>;
 }) => {
   const { mutate, isPending } = useCreateReturnDetails();
+  const [pdiDocument, setPdiDocument] = useState<File | null>(null);
   const router = useRouter();
   const { toast } = useToast();
   const [isChargeModalOpen, setIsChargeModalOpen] = useState(false);
   const [images, setImages] = useState<File[]>();
   const [returnDetails, setReturnDetails] = useState<TReturnDetails>({
     date: new Date(data?.data?.leaseEndDate)?.toISOString()?.slice(0, 16),
-    pdiDocument: null,
     dealerComments: "",
     customerComments: "",
     currentMileage: null,
@@ -71,8 +71,8 @@ const SubReturnProcess = ({
     );
     formData.append("fuelLevel", returnDetails.fuelLevel);
 
-    if (returnDetails.pdiDocument) {
-      formData.append("pdiDocument", returnDetails.pdiDocument);
+    if (pdiDocument) {
+      formData.append("pdiDocument", pdiDocument);
     }
 
     images!.forEach((photo) => {
@@ -90,6 +90,7 @@ const SubReturnProcess = ({
 
     mutate(formData, {
       onSuccess: (data) => {
+        console.log(data);
         if (data?.success) {
           toast({
             title: "Return Completed",
@@ -175,6 +176,8 @@ const SubReturnProcess = ({
             startingMileage={data?.data?.deliveryId?.startingMiles}
             images={images}
             setImages={setImages}
+            pdiDocument={pdiDocument}
+            setPdiDocument={setPdiDocument}
           />
         )}
       </div>

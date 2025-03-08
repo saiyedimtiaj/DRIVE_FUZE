@@ -18,6 +18,8 @@ type Props = {
   startingMileage: number;
   images: File[] | undefined;
   setImages: React.Dispatch<React.SetStateAction<File[] | undefined>>;
+  pdiDocument: File | null;
+  setPdiDocument: React.Dispatch<React.SetStateAction<File | null>>;
 };
 
 const ReturnForm = ({
@@ -26,17 +28,10 @@ const ReturnForm = ({
   startingMileage,
   images,
   setImages,
+  pdiDocument,
+  setPdiDocument,
 }: Props) => {
   const [currentReturnPhoto, setCurrentReturnPhoto] = useState(0);
-
-  const handlePDIUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setReturnDetails((prev) => ({
-        ...prev,
-        pdiDocument: e.target.files![0],
-      }));
-    }
-  };
 
   const handlePhotosUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -84,11 +79,15 @@ const ReturnForm = ({
               required
               type="file"
               accept=".pdf"
-              onChange={handlePDIUpload}
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  setPdiDocument(e.target.files[0]);
+                }
+              }}
             />
-            {returnDetails.pdiDocument && (
+            {pdiDocument && (
               <p className="text-sm text-muted-foreground mt-1">
-                Uploaded: {returnDetails.pdiDocument.name}
+                Uploaded: {pdiDocument.name}
               </p>
             )}
           </div>

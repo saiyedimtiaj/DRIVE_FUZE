@@ -251,7 +251,6 @@ export type TDealerSupport = {
 
 export interface TReturnDetails {
   date: string;
-  pdiDocument: File | null;
   dealerComments: string;
   customerComments: string;
   currentMileage: number | null;
