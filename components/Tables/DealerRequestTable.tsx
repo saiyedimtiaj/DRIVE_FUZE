@@ -40,13 +40,18 @@ function DealerRequestTable() {
 
   const columns: ColumnDef<TRequest>[] = [
     {
-      accessorKey: "Reg",
+      accessorKey: "registrationNumber",
       header: "Reg",
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original.carId.registrationNumber}
         </div>
       ),
+      filterFn: (row, columnId, filterValue) => {
+        return row.original.carId.registrationNumber
+          .toLowerCase()
+          .includes(filterValue.toLowerCase());
+      },
     },
     {
       accessorKey: "Brand",
@@ -163,10 +168,16 @@ function DealerRequestTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search by Name"
-          value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
+          placeholder="Search by Registration Number"
+          value={
+            (table
+              .getColumn("registrationNumber")
+              ?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("model")?.setFilterValue(event.target.value)
+            table
+              .getColumn("registrationNumber")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
