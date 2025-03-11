@@ -196,7 +196,7 @@ const TransactionDetails = () => {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Term</p>
-              <p className="font-medium">12 months</p>
+              <p className="font-medium">6 months</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Dealer</p>

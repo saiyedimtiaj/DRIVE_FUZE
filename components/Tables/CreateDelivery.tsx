@@ -292,7 +292,6 @@ export default function CreateDelivery() {
                     </div>
                   ) : (
                     <>
-                      <Label>Signed Subscription Agreement</Label>
                       <Input
                         type="file"
                         accept=".pdf"

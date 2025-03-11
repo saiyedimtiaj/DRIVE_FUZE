@@ -31,6 +31,7 @@ const SigninForm = () => {
     const payload = { email, password };
     login(payload, {
       onSuccess: (data) => {
+        console.log(data);
         setIsLoading(true);
         if (data?.success) {
           toast({

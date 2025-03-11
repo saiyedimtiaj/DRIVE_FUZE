@@ -8,7 +8,6 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useGetSingleRequestsQuery } from "@/hooks/request.hooks";
 
 const Includes = [
-  "1,000 miles per month",
   "Comprehensive insurance",
   "Road tax",
   "Maintenance & servicing",
@@ -123,10 +122,7 @@ const BookingLayoutCarDetails = ({ id }: { id: string }) => {
             <div className="flex justify-between items-baseline mb-4">
               {bookingData?.data ? (
                 <p className="text-2xl font-bold">
-                  £
-                  {bookingData?.data?.leasePrice +
-                    (bookingData?.data?.aditionalDriver === "yes" ? 20 : 0) +
-                    (bookingData?.data?.aditionalMiles === "yes" ? 40 : 0)}
+                  £{bookingData?.data?.leasePrice}
                   /pm
                 </p>
               ) : (
@@ -135,10 +131,18 @@ const BookingLayoutCarDetails = ({ id }: { id: string }) => {
               <p className="text-sm text-muted-foreground">Including VAT</p>
             </div>
             <p className="text-sm text-muted-foreground mb-2">
-              What&aposs included:
+              What&apos;s included:
             </p>
             <ul className="space-y-2">
-              {Includes.map((item: string, index: number) => (
+              <li className="flex items-center text-sm">
+                <div className="h-1.5 w-1.5 rounded-full bg-burgundy mr-2" />
+                {queryParams.get("addMiles") ||
+                bookingData?.data?.aditionalMiles === "yes"
+                  ? "1,200"
+                  : "1,000"}{" "}
+                miles per month
+              </li>
+              {Includes.map((item, index) => (
                 <li key={index} className="flex items-center text-sm">
                   <div className="h-1.5 w-1.5 rounded-full bg-burgundy mr-2" />
                   {item}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
@@ -22,7 +22,6 @@ import { useGetSingleCars } from "@/hooks/car.hooks";
 import Loader from "../Shared/Loader";
 
 const included = [
-  "1,000 miles per month",
   "Comprehensive insurance",
   "Road tax",
   "Maintenance & servicing",
@@ -36,7 +35,19 @@ export default function CarDetails({ id }: { id: string }) {
   const searchParams = useSearchParams();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(data?.data?.price || 0);
   const params = new URLSearchParams(searchParams);
+
+  useEffect(() => {
+    let newPrice = data?.data?.price || 0;
+    if (selectedExtras.includes("additionalDriver")) {
+      newPrice += 20;
+    }
+    if (selectedExtras.includes("addMiles")) {
+      newPrice += 40;
+    }
+    setTotalPrice(newPrice);
+  }, [selectedExtras, data]);
 
   // Function to toggle extras
   const handleExtraClick = (extra: string) => {
@@ -247,7 +258,7 @@ export default function CarDetails({ id }: { id: string }) {
             <Card className="p-6">
               <div className="space-y-6">
                 <div>
-                  <p className="text-4xl font-bold">£{data?.data?.price}/pm</p>
+                  <p className="text-4xl font-bold">£{totalPrice}/pm</p>
                   <p className="text-sm text-muted-foreground">
                     Inclusive of VAT
                   </p>
@@ -258,6 +269,11 @@ export default function CarDetails({ id }: { id: string }) {
                     What aditionalDrivers included:
                   </h3>
                   <ul className="space-y-2">
+                    <li className="flex items-center text-sm">
+                      <div className="h-1.5 w-1.5 rounded-full bg-burgundy mr-2" />
+                      {selectedExtras.includes("addMiles") ? "1,200" : "1,000"}{" "}
+                      miles per month
+                    </li>
                     {included.map((item, index) => (
                       <li key={index} className="flex items-center text-sm">
                         <div className="h-1.5 w-1.5 rounded-full bg-burgundy mr-2" />

@@ -29,7 +29,7 @@ const EditCar = () => {
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
-    formData.set("data", JSON.stringify(data));
+    formData.set("data", JSON.stringify({ ...data, status: "InActive" }));
 
     const existingImags: string[] = [];
 
@@ -172,7 +172,7 @@ const EditCar = () => {
           <Button type="button" variant="outline">
             Cancel
           </Button>
-          <Button disabled={isPending} type="submit">
+          <Button className="bg-burgundy" disabled={isPending} type="submit">
             {isPending ? (
               <>
                 <Loader size={25} className="h-4 w-4 animate-spin mr-2" />

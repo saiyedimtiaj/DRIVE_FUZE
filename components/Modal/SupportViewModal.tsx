@@ -32,7 +32,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
   const [replyMessage, setReplyMessage] = useState("");
   const { mutate, isPending } = useCreateCarCareSendMessage();
   const { data, refetch, isLoading } = useGetSingleCarCare(defaultValue?._id);
-  const { mutate: statusChange, isPending: isStatusPanding } =
+  const { mutate: statusChange, isPending: isStatusPending } =
     useChangeCarCareStatus();
 
   const sendMessage = () => {
@@ -53,13 +53,13 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
     );
   };
 
-  const handleStstus = () => {
+  const handleStatus = () => {
     statusChange(defaultValue?._id, {
       onSuccess: (data) => {
         refetch();
         setIsOpen(false);
         toast({
-          title: data?.success ? "Success" : "Failde",
+          title: data?.success ? "Success" : "Failed",
           description: data?.message,
           variant: data?.success ? "default" : "destructive",
         });
@@ -71,7 +71,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-      <DialogContent className="w-full max-w-lg bg-white p-6 rounded-md shadow-lg">
+      <DialogContent className="w-full max-w-lg bg-white py-6 px-0 md:p-6 rounded-md shadow-lg">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">
             Support Ticket Details
@@ -79,6 +79,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
         </DialogHeader>
         <DialogDescription />
         <ScrollArea className="h-72 px-3">
+          {/* Ticket Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data?.data?.location && (
               <div>
@@ -121,6 +122,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
             <p className="mt-1">{data?.data?.note}</p>
           </div>
 
+          {/* Photos Section */}
           {data?.data?.images?.length > 0 && (
             <div>
               <p className="text-sm text-muted-foreground mb-2">Photos</p>
@@ -141,21 +143,28 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
             </div>
           )}
 
+          {/* Messages Section */}
           <div className="space-y-4 mt-3">
             <h3 className="font-semibold">Message History</h3>
             <ScrollArea className="space-y-4 h-[300px]">
               {data?.data?.messages?.map((message: TMessages) => (
                 <div
                   key={message.time}
-                  className={`p-4 rounded-lg my-3 ${
-                    message.role === "dealer"
-                      ? "bg-burgundy/10 ml-8"
-                      : "bg-gray-100 mr-8"
+                  className={`p-3 md:p-4 rounded-lg my-3 max-w-[90%] md:max-w-[80%] ${
+                    user?.role == message.role && "ml-auto"
+                  } ${
+                    message.role === "admin"
+                      ? "bg-gray-800 text-white self-end"
+                      : "bg-gray-200 text-black self-start "
                   }`}
+                  style={{
+                    alignSelf:
+                      message.role === "admin" ? "flex-end" : "flex-start",
+                  }}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <p className="font-medium text-xs">{message.name}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-gray-400">
                       {new Date(message.time).toLocaleString()}
                     </p>
                   </div>
@@ -165,6 +174,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
             </ScrollArea>
           </div>
 
+          {/* Reply Section */}
           {data?.data?.status !== "resolve" && (
             <div className="space-y-4 px-1 mt-4">
               <Textarea
@@ -176,8 +186,8 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
               <div className="flex justify-end gap-3">
                 {user?.role === "admin" && (
                   <Button
-                    disabled={isStatusPanding}
-                    onClick={handleStstus}
+                    disabled={isStatusPending}
+                    onClick={handleStatus}
                     type="button"
                   >
                     Mark Resolve

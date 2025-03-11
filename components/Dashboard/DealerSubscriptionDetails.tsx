@@ -44,22 +44,19 @@ const DealerSubscriptionDetails = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 pb-8">
+    <div className="container mx-auto">
       <Link
-        href="/dealer?tab=subscriptions"
+        href="/dealer/subscriptions"
         className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
       >
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Subscriptions
       </Link>
 
-      {/* <SubscriptionTimeline currentStep={currentStep} /> */}
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Subscription Progress */}
-          <Card className="p-6">
+        <div className="lg:col-span-2 col-span-1 space-y-6">
+          <Card className="p-4 md:p-6">
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold">Subscription Progress</h2>
@@ -67,7 +64,6 @@ const DealerSubscriptionDetails = () => {
                   {calculateDaysRemaining()} days remaining
                 </span>
               </div>
-              {/* <Progress value={calculateProgress()} className="h-2" /> */}
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>
                   {new Date(data?.data?.leaseStartDate).toLocaleDateString()}
@@ -80,9 +76,9 @@ const DealerSubscriptionDetails = () => {
           </Card>
 
           {/* Customer Details */}
-          <Card className="p-6">
+          <Card className="p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6">Customer Details</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">Name</p>
                 <p className="font-medium">
@@ -110,7 +106,7 @@ const DealerSubscriptionDetails = () => {
           </Card>
 
           {/* Vehicle Details */}
-          <Card className="p-6">
+          <Card className="p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6">Vehicle Details</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -135,7 +131,7 @@ const DealerSubscriptionDetails = () => {
           </Card>
 
           {/* Subscription Details */}
-          <Card className="p-6">
+          <Card className="p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6">Subscription Details</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -158,7 +154,7 @@ const DealerSubscriptionDetails = () => {
           </Card>
 
           {/* Delivery Details */}
-          <Card className="p-6">
+          <Card className="p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6">Delivery Details</h2>
             <div className="space-y-6">
               <div>
@@ -166,7 +162,9 @@ const DealerSubscriptionDetails = () => {
                   Delivery Date & Time
                 </Label>
                 <p className="font-medium mt-1">
-                  {new Date(data?.data?.deliveryDateAndtime).toLocaleString()}
+                  {new Date(
+                    data?.data?.deliveryId?.confirmDeliveryDate
+                  ).toLocaleString()}
                 </p>
               </div>
 
@@ -188,14 +186,17 @@ const DealerSubscriptionDetails = () => {
                 <Label className="text-muted-foreground">Car Photos</Label>
                 <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mt-2 mb-4">
                   <Image
-                    src={data?.data?.carImages[currentDeliveryPhoto]?.url}
+                    src={
+                      data?.data?.deliveryId?.carImages?.[currentDeliveryPhoto]
+                        ?.url
+                    }
                     alt="Car delivery photo"
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  {data?.data?.carImages?.map(
+                  {data?.data?.deliveryId?.carImages?.map(
                     (photo: { url: string }, index: number) => (
                       <div
                         key={index}
@@ -220,14 +221,16 @@ const DealerSubscriptionDetails = () => {
 
               <div>
                 <Label className="text-muted-foreground">Dealer Comments</Label>
-                <p className="mt-1">{data?.data?.dealerComment}</p>
+                <p className="mt-1">{data?.data?.deliveryId?.dealerComment}</p>
               </div>
 
               <div>
                 <Label className="text-muted-foreground">
                   Customer Comments
                 </Label>
-                <p className="mt-1">{data?.data?.customerComment}</p>
+                <p className="mt-1">
+                  {data?.data?.preparetionId?.customerComment}
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -241,7 +244,9 @@ const DealerSubscriptionDetails = () => {
                 </div>
                 <div>
                   <Label className="text-muted-foreground">Fuel Level</Label>
-                  <p className="font-medium mt-1">{data?.data?.fuelLabel}</p>
+                  <p className="font-medium mt-1">
+                    {data?.data?.deliveryId?.fuelLabel}
+                  </p>
                 </div>
               </div>
             </div>
@@ -250,7 +255,7 @@ const DealerSubscriptionDetails = () => {
 
         {/* Status Sidebar */}
         <div className="space-y-6">
-          <Card className="p-6 sticky top-24">
+          <Card className="p-4 md:p-6 sticky top-24">
             <h2 className="text-xl font-bold mb-6">Status</h2>
 
             <div className="space-y-6">

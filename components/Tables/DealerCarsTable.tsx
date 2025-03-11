@@ -29,6 +29,7 @@ import DataTable from "../Shared/Table";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import LoaderScreen from "../Shared/Loader";
+import { Badge } from "../ui/badge";
 
 function DealerCarsTable() {
   const pathname = usePathname();
@@ -91,7 +92,16 @@ function DealerCarsTable() {
               }`}
             ></button>
           )}
-          {row.original.status}
+          <Badge
+            className={`${
+              row.original.status === "InActive"
+                ? "bg-[#D1D5DB] text-black"
+                : "bg-[#22C35D]"
+            }`}
+          >
+            {" "}
+            {row.original.status}
+          </Badge>
         </div>
       ),
     },

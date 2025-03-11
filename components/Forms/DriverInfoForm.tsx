@@ -105,7 +105,6 @@ const DriverInfoForm = ({ id }: { id: string }) => {
             <CRInput
               name="customerInfo.preferredName"
               label="Preferred Name"
-              required
               defaultValue={data?.data?.gender}
             />
           </div>
@@ -296,7 +295,7 @@ const DriverInfoForm = ({ id }: { id: string }) => {
         </div>
       )}
 
-      <Button className="mt-5" disabled={isPending} type="submit">
+      <Button className="mt-5 bg-burgundy" disabled={isPending} type="submit">
         {isPending ? (
           <>
             <Loader size={25} className="h-4 w-4 animate-spin mr-2" />

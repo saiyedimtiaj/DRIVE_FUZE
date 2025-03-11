@@ -53,7 +53,7 @@ const CreateInventory = () => {
     >
       <div className="space-y-8">
         {/* Basic Information */}
-        <Card className="p-6">
+        <Card className="p-4 md:p-6">
           <h2 className="text-xl font-semibold mb-4">Basic Information</h2>
           <AutoFillForm setDefaultValue={setDefaultValue} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -91,7 +91,7 @@ const CreateInventory = () => {
         </Card>
 
         {/* Technical Specifications */}
-        <Card className="p-6">
+        <Card className="p-4 md:p-6">
           <h2 className="text-xl font-semibold mb-4">
             Technical Specifications
           </h2>
@@ -134,9 +134,9 @@ const CreateInventory = () => {
         </Card>
 
         {/* Vehicle Description */}
-        <Card className="p-6">
+        <Card className="p-4 md:p-6">
           <h2 className="text-xl font-semibold mb-4">Vehicle Description</h2>
-          <div className="h-[200px]">
+          <div className="h-[270px] md:h-[200px]">
             <CRTextEditor name="details" />
           </div>
         </Card>

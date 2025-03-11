@@ -27,8 +27,25 @@ export interface VerificationStatus {
   DVLACheck: string;
   creditCheck: string;
   drivingLicenseFront: string;
+  aditionalDrivingLicenseFront?: string;
   drivingLicenseBack: string;
+  aditionalDrivingLicenseBack?: string;
   proofOfAddress: string;
+  aditionalProofOfAddress?: string;
+  score?: number;
+  status?: string;
+}
+
+export interface VerificationStatus {
+  identityCheck: string;
+  DVLACheck: string;
+  creditCheck: string;
+  drivingLicenseFront: string;
+  aditionalDrivingLicenseFront?: string;
+  drivingLicenseBack: string;
+  aditionalDrivingLicenseBack?: string;
+  proofOfAddress: string;
+  aditionalProofOfAddress?: string;
   score?: number;
   status?: string;
 }
@@ -37,6 +54,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
   const { data, isLoading } = useGetSingleCustomerCheck(id);
   const { mutate: update, isPending } = useUpdateRiskScore();
   const router = useRouter();
+
   const [verificationStatus, setVerificationStatus] =
     useState<VerificationStatus>({
       identityCheck: "",
@@ -47,35 +65,47 @@ export default function AssessMentDetails({ id }: { id: string }) {
       proofOfAddress: "",
     });
 
-  const [riskScore, setRiskScore] = useState(0);
-
   const calculateRiskScore = () => {
     let score = 0;
-    if (verificationStatus?.identityCheck === "Approved") score += 20;
-    if (verificationStatus?.DVLACheck === "Approved") score += 20;
-    if (verificationStatus?.creditCheck === "Approved") score += 20;
 
-    // Document Checks (20 points if all approved)
-    if (
-      verificationStatus?.drivingLicenseFront === "Approved" &&
-      verificationStatus?.drivingLicenseBack === "Approved" &&
-      verificationStatus?.proofOfAddress === "Approved"
-    ) {
-      score += 20;
+    if (verificationStatus.identityCheck === "Approved") score += 20;
+    if (verificationStatus.DVLACheck === "Approved") score += 20;
+    if (verificationStatus.creditCheck === "Approved") score += 20;
+
+    // If additional documents exist, all must be approved for full points
+    const hasAdditionalDocs =
+      verificationStatus.aditionalDrivingLicenseFront &&
+      verificationStatus.aditionalDrivingLicenseBack &&
+      verificationStatus.aditionalProofOfAddress;
+
+    if (hasAdditionalDocs) {
+      if (
+        verificationStatus.drivingLicenseFront === "Approved" &&
+        verificationStatus.drivingLicenseBack === "Approved" &&
+        verificationStatus.proofOfAddress === "Approved" &&
+        verificationStatus.aditionalDrivingLicenseFront === "Approved" &&
+        verificationStatus.aditionalDrivingLicenseBack === "Approved" &&
+        verificationStatus.aditionalProofOfAddress === "Approved"
+      ) {
+        score += 20;
+      }
+    } else {
+      if (
+        verificationStatus.drivingLicenseFront === "Approved" &&
+        verificationStatus.drivingLicenseBack === "Approved" &&
+        verificationStatus.proofOfAddress === "Approved"
+      ) {
+        score += 20;
+      }
     }
 
-    // Ensure score is between 0 and 100
     return Math.min(100, Math.max(0, score));
   };
 
   const calculateStatus = () => {
     const statuses = Object.values(verificationStatus);
-    if (statuses.includes("Declined")) {
-      return "Flagged";
-    }
-    if (statuses.every((status) => status === "Approved")) {
-      return "Verified";
-    }
+    if (statuses.includes("Declined")) return "Flagged";
+    if (statuses.every((status) => status === "Approved")) return "Verified";
     return "Pending Review";
   };
 
@@ -103,10 +133,7 @@ export default function AssessMentDetails({ id }: { id: string }) {
       {
         onSuccess: (data) => {
           if (data?.success) {
-            toast({
-              title: "Success",
-              description: data?.message,
-            });
+            toast({ title: "Success", description: data?.message });
             router.push("/admin/risk-assessment");
           } else {
             toast({
@@ -121,41 +148,26 @@ export default function AssessMentDetails({ id }: { id: string }) {
   };
 
   useEffect(() => {
-    setVerificationStatus({
-      drivingLicenseFront: data?.data?.drivingLicenseFront,
-      drivingLicenseBack: data?.data?.drivingLicenseBack,
-      proofOfAddress: data?.data?.proofOfAddress,
-      DVLACheck: data?.data?.DVLACheck,
-      creditCheck: data?.data?.creditCheck,
-      identityCheck: data?.data?.identityCheck,
-    });
-    setRiskScore(data?.data?.score);
-  }, [data]);
-
-  useEffect(() => {
-    let score = 0;
-    if (verificationStatus?.identityCheck === "Approved") score += 20;
-    if (verificationStatus?.DVLACheck === "Approved") score += 20;
-    if (verificationStatus?.creditCheck === "Approved") score += 20;
-
-    // Document Checks (20 points if all approved)
-    if (
-      verificationStatus?.drivingLicenseFront === "Approved" &&
-      verificationStatus?.drivingLicenseBack === "Approved" &&
-      verificationStatus?.proofOfAddress === "Approved"
-    ) {
-      score += 20;
+    if (data?.data) {
+      setVerificationStatus({
+        identityCheck: data.data.identityCheck || "",
+        DVLACheck: data.data.DVLACheck || "",
+        creditCheck: data.data.creditCheck || "",
+        drivingLicenseFront: data.data.drivingLicenseFront || "",
+        drivingLicenseBack: data.data.drivingLicenseBack || "",
+        proofOfAddress: data.data.proofOfAddress || "",
+        aditionalDrivingLicenseFront:
+          data.data.aditionalDrivingLicenseFront || "",
+        aditionalDrivingLicenseBack:
+          data.data.aditionalDrivingLicenseBack || "",
+        aditionalProofOfAddress: data.data.aditionalProofOfAddress || "",
+      });
     }
-
-    const initialScore = Math.min(100, Math.max(0, score));
-    setRiskScore(initialScore);
-  }, [verificationStatus]);
+  }, [data]);
 
   if (isLoading) {
     return <LoaderScreen />;
   }
-
-  console.log(data?.data);
 
   return (
     <div className="container mx-auto pb-8">
@@ -534,6 +546,27 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       File: driving-license-front.jpg
                     </p>
                   </div>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Status</label>
+                    <Select
+                      value={verificationStatus.aditionalDrivingLicenseFront}
+                      onValueChange={(value) =>
+                        handleStatusChange(
+                          "aditionalDrivingLicenseFront",
+                          value
+                        )
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Approved">Approved</SelectItem>
+                        <SelectItem value="Declined">Declined</SelectItem>
+                        <SelectItem value="Pending">Pending</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Driving License Back */}
@@ -562,6 +595,24 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       File: driving-license-back.jpg
                     </p>
                   </div>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Status</label>
+                    <Select
+                      value={verificationStatus.aditionalDrivingLicenseBack}
+                      onValueChange={(value) =>
+                        handleStatusChange("aditionalDrivingLicenseBack", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Approved">Approved</SelectItem>
+                        <SelectItem value="Declined">Declined</SelectItem>
+                        <SelectItem value="Pending">Pending</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Proof of Address */}
@@ -588,6 +639,24 @@ export default function AssessMentDetails({ id }: { id: string }) {
                       File: proof-of-address.jpg
                     </p>
                   </div>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Status</label>
+                    <Select
+                      value={verificationStatus.aditionalProofOfAddress}
+                      onValueChange={(value) =>
+                        handleStatusChange("aditionalProofOfAddress", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Approved">Approved</SelectItem>
+                        <SelectItem value="Declined">Declined</SelectItem>
+                        <SelectItem value="Pending">Pending</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -601,8 +670,10 @@ export default function AssessMentDetails({ id }: { id: string }) {
 
             <div className="space-y-3">
               <div className="text-center">
-                <Progress value={riskScore} className="h-4 mb-5" />
-                <span className="text-3xl font-bold">{riskScore}</span>
+                <Progress value={calculateRiskScore()} className="h-4 mb-5" />
+                <span className="text-3xl font-bold">
+                  {calculateRiskScore()}
+                </span>
               </div>
 
               <Separator />

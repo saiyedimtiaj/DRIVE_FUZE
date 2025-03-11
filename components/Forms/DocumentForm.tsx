@@ -85,7 +85,13 @@ const Documents = ({ id, bookingId }: { id: string; bookingId: string }) => {
   }, [customerCheckData, data?.data?.aditionalDriver]);
 
   const allDocumentsSuccessful =
-    frontLicenseImage && backLicenseImage && proofOfAddressImage;
+    frontLicenseImage &&
+    backLicenseImage &&
+    proofOfAddressImage &&
+    (data?.data?.aditionalDriver !== "yes" ||
+      (frontLicenseImageAdditional &&
+        backLicenseImageAdditional &&
+        proofOfAddressImageAdditional));
 
   const handleSubmit = async () => {
     const payload = {

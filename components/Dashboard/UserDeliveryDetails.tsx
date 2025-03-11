@@ -184,7 +184,7 @@ export default function UserDeliveryDetails() {
                     <Button
                       disabled={!customerComment || isPending}
                       onClick={handleAddComment}
-                      className="mt-2"
+                      className="mt-2 bg-burgundy"
                     >
                       Add Comment
                     </Button>

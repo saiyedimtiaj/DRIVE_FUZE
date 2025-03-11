@@ -72,7 +72,7 @@ const DriverInfo = () => {
                 { name: "Male", value: "male" },
                 { name: "Female", value: "female" },
               ]}
-              required
+              required={true}
             />
           </div>
           <div className="space-y-2 w-full">
@@ -283,7 +283,7 @@ const DriverInfo = () => {
           </div>
         </div>
       )}
-      <Button className="mt-5" disabled={isPending} type="submit">
+      <Button className="mt-5 bg-burgundy" disabled={isPending} type="submit">
         {isPending ? (
           <>
             <Loader size={25} className="h-4 w-4 animate-spin mr-2" />
