@@ -161,6 +161,7 @@ export default function DealerPrepDetails() {
             toast({
               title: "Failed",
               description: data?.message,
+              variant: "destructive",
             });
             setShowDeliveryDialog(false);
           }
