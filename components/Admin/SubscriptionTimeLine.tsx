@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 
 interface TimelineProps {
   currentStep: number;
+  status: string;
 }
 
 const steps = [
@@ -11,7 +12,12 @@ const steps = [
   { id: 2, name: "Return" },
 ];
 
-export default function SubscriptionTimeline({ currentStep }: TimelineProps) {
+export default function SubscriptionTimeline({
+  currentStep,
+  status,
+}: TimelineProps) {
+  const isCompleted = status === "Return";
+
   return (
     <div className="w-full mb-8">
       <div className="relative flex justify-between">
@@ -20,7 +26,9 @@ export default function SubscriptionTimeline({ currentStep }: TimelineProps) {
           <div
             className="absolute top-0 left-0 h-full bg-burgundy transition-all duration-500"
             style={{
-              width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
+              width: isCompleted
+                ? "100%"
+                : `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
             }}
           />
         </div>
@@ -33,14 +41,14 @@ export default function SubscriptionTimeline({ currentStep }: TimelineProps) {
           >
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
-                step.id < currentStep
+                isCompleted || step.id < currentStep
                   ? "bg-burgundy border-burgundy text-white"
                   : step.id === currentStep
                   ? "bg-white border-burgundy text-burgundy"
                   : "bg-white border-gray-300 text-gray-300"
               }`}
             >
-              {step.id < currentStep ? (
+              {isCompleted || step.id < currentStep ? (
                 <Check className="w-5 h-5" />
               ) : (
                 <span className="text-sm font-semibold">{step.id}</span>
@@ -48,7 +56,9 @@ export default function SubscriptionTimeline({ currentStep }: TimelineProps) {
             </div>
             <span
               className={`mt-2 text-sm font-medium ${
-                step.id <= currentStep ? "text-burgundy" : "text-gray-400"
+                isCompleted || step.id <= currentStep
+                  ? "text-burgundy"
+                  : "text-gray-400"
               }`}
             >
               {step.name}

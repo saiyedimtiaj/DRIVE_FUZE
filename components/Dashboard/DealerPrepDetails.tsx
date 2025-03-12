@@ -28,6 +28,7 @@ import {
 import {
   useGetSinglePreparetion,
   useSetEarlyPrepDate,
+  useSetSeduleDate,
   useUpdatePrep,
 } from "@/hooks/Prep.hooks";
 import CRMultiFile from "../Shared/CRMultiFile";
@@ -35,6 +36,7 @@ import Image from "next/image";
 import LoaderScreen from "../Shared/Loader";
 
 export default function DealerPrepDetails() {
+  const { mutate: setSedule } = useSetSeduleDate();
   const { id } = useParams();
   const { data, isLoading, refetch } = useGetSinglePreparetion(id as string);
   const { mutate: setEarlyDate } = useSetEarlyPrepDate();
@@ -144,12 +146,28 @@ export default function DealerPrepDetails() {
       return;
     }
 
-    setBookedDeliveryDateTime(alternativeDateTime);
+    setSedule(
+      { id: data?.data?._id, date: alternativeDateTime },
+      {
+        onSuccess: (data) => {
+          if (data?.success) {
+            toast({
+              title: "Success",
+              description: "Alternative delivery slot proposed",
+            });
+            setShowDeliveryDialog(false);
+            refetch();
+          } else {
+            toast({
+              title: "Failed",
+              description: data?.message,
+            });
+            setShowDeliveryDialog(false);
+          }
+        },
+      }
+    );
     setShowDeliveryDialog(false);
-    toast({
-      title: "Success",
-      description: "Alternative delivery slot proposed",
-    });
   };
 
   const handleStatusUpdate = () => {

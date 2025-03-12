@@ -34,7 +34,10 @@ const AdminSubDetails = () => {
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Subscriptions
       </Link>
-      <SubscriptionTimeline currentStep={currentStep} />
+      <SubscriptionTimeline
+        currentStep={currentStep}
+        status={data?.data?.status}
+      />
       {currentStep === 1 ? (
         <SubscriptionDetails data={data} setCurrentStep={setCurrentStep} />
       ) : (

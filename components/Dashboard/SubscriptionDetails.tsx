@@ -13,6 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../ui/alert-dialog";
+import { useUser } from "@/lib/user.provider";
 
 export default function SubscriptionDetails({
   data,
@@ -24,6 +25,7 @@ export default function SubscriptionDetails({
   const [currentListingPhoto, setCurrentListingPhoto] = useState(0);
   const [currentDeliveryPhoto, setCurrentDeliveryPhoto] = useState(0);
   const [showReturnDialog, setShowReturnDialog] = useState(false);
+  const { user } = useUser();
 
   const handleStartReturn = () => {
     setCurrentStep(2);
@@ -251,18 +253,22 @@ export default function SubscriptionDetails({
                 </span>
               </div>
 
-              <Button
-                onClick={
-                  data?.data?.status === "Active"
-                    ? () => setShowReturnDialog(true)
-                    : () => setCurrentStep(2)
-                }
-                className="w-full bg-burgundy hover:bg-burgundy/90 text-white"
-              >
-                {data?.data?.status === "Active"
-                  ? "Start Return Process"
-                  : "Show Return Details"}
-              </Button>
+              {user?.role === "admin" && data?.data?.status === "Active" ? (
+                ""
+              ) : (
+                <Button
+                  onClick={
+                    data?.data?.status === "Active"
+                      ? () => setShowReturnDialog(true)
+                      : () => setCurrentStep(2)
+                  }
+                  className="w-full bg-burgundy hover:bg-burgundy/90 text-white"
+                >
+                  {data?.data?.status === "Active"
+                    ? "Start Return Process"
+                    : "Show Return Details"}
+                </Button>
+              )}
               <AlertDialog
                 open={showReturnDialog}
                 onOpenChange={setShowReturnDialog}

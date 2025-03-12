@@ -38,6 +38,8 @@ export default function CarDetails({ id }: { id: string }) {
   const [totalPrice, setTotalPrice] = useState<number>(data?.data?.price || 0);
   const params = new URLSearchParams(searchParams);
 
+  console.log(data);
+
   useEffect(() => {
     let newPrice = data?.data?.price || 0;
     if (selectedExtras.includes("additionalDriver")) {
@@ -198,7 +200,9 @@ export default function CarDetails({ id }: { id: string }) {
                   <p className="text-sm text-muted-foreground">
                     Battery size (kWh)
                   </p>
-                  <p className="font-medium">{data?.data?.batterySize}</p>
+                  <p className="font-medium">
+                    {data?.data?.batterySize || "n/a"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Euro status</p>
