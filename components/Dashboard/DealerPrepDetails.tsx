@@ -253,7 +253,7 @@ export default function DealerPrepDetails() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="p-6">
+            <Card className="p-4 md:p-6">
               <h2 className="text-2xl font-bold mb-6">Fulfillment Details</h2>
               <div className="space-y-6">
                 {data?.data?.status === "Awating Delivery" ? (
@@ -264,7 +264,7 @@ export default function DealerPrepDetails() {
                     <p className="font-medium mt-1">{data?.data?.status}</p>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col md:flex-row gap-8 items-start md:items-center justify-start md:justify-between">
                     <div>
                       <Label className="text-muted-foreground">
                         Car Readiness Status
@@ -298,7 +298,7 @@ export default function DealerPrepDetails() {
                         </span>
                       </div>
                     </div>
-                    <div className="flex-1 ml-8">
+                    <div className="md:flex-1 md:ml-8">
                       <Label className="text-muted-foreground">
                         Earliest Delivery Date & Time
                       </Label>
@@ -535,7 +535,7 @@ export default function DealerPrepDetails() {
             </div>
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="flex gap-3 md:flex-row flex-col">
             <Button
               variant="outline"
               onClick={() => setShowDeliveryDialog(false)}
