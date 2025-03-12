@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { MoreHorizontal, Plus } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -53,21 +53,55 @@ function DealerCarsTable() {
 
   const columns: ColumnDef<TCar>[] = [
     {
-      accessorKey: "Reg",
-      header: "Reg",
+      accessorKey: "registrationNumber",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Reg
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <div className="capitalize">{row.original.registrationNumber}</div>
       ),
     },
     {
       accessorKey: "model",
-      header: "Name",
-      cell: ({ row }) => <div className="capitalize">{row.original.model}</div>,
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Model
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.original.model}</div>
+      ),
     },
     {
       accessorKey: "Brand",
-      header: "Brand",
-      cell: ({ row }) => <div className="capitalize">{row.original.brand}</div>,
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Brand
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.original.brand}</div>
+      ),
     },
     {
       accessorKey: "status",
@@ -106,15 +140,37 @@ function DealerCarsTable() {
       ),
     },
     {
-      accessorKey: "Price (p/m)",
-      header: "Price (p/m)",
-      cell: ({ row }) => <div className="capitalize">{row.original.price}</div>,
+      accessorKey: "price",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Price (p/m)
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.original.price}</div>
+      ),
     },
     {
-      accessorKey: "Mileage",
-      header: "Mileage",
+      accessorKey: "mileage",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Mileage
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.mileage}</div>
+        <div className="capitalize text-center">{row.original.mileage}</div>
       ),
     },
     {
@@ -125,10 +181,20 @@ function DealerCarsTable() {
       ),
     },
     {
-      accessorKey: "Added On",
-      header: "Added On",
+      accessorKey: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Added On
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.createdAt?.slice(0, 10)}
         </div>
       ),

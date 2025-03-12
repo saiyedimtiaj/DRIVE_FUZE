@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import LoaderScreen from "../Shared/Loader";
 
@@ -40,45 +40,72 @@ function DealerRequestTable() {
 
   const columns: ColumnDef<TRequest>[] = [
     {
-      accessorKey: "registrationNumber",
-      header: "Reg",
+      accessorKey: "carId.registrationNumber",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Reg <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original.carId.registrationNumber}
         </div>
       ),
-      filterFn: (row, columnId, filterValue) => {
-        return row.original.carId.registrationNumber
+      filterFn: (row, columnId, filterValue) =>
+        row.original.carId.registrationNumber
           .toLowerCase()
-          .includes(filterValue.toLowerCase());
-      },
+          .includes(filterValue.toLowerCase()),
     },
     {
-      accessorKey: "Brand",
-      header: "Brand",
+      accessorKey: "carId.brand",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Brand <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.brand}</div>
+        <div className="capitalize text-center">{row.original.carId.brand}</div>
       ),
     },
     {
-      accessorKey: "Variant",
-      header: "Variant",
+      accessorKey: "carId.variant",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Variant <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.model}</div>
+        <div className="capitalize text-center">{row.original.carId.model}</div>
       ),
     },
     {
       accessorKey: "status",
-      header: "Status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => {
         const status = row.original.status;
-        const statusClass = (() => {
-          if (status === "Pending") return "bg-yellow-100 text-yellow-800";
-          if (status === "In Review") return "bg-blue-100 text-blue-800";
-          if (status === "Accepted") return "bg-green-100 text-green-800";
-          if (status === "Declined") return "bg-red-100 text-red-800";
-          return "bg-gray-100 text-gray-800"; // Default class
-        })();
+        const statusClass =
+          {
+            Pending: "bg-yellow-100 text-yellow-800",
+            "In Review": "bg-blue-100 text-blue-800",
+            Accepted: "bg-green-100 text-green-800",
+            Declined: "bg-red-100 text-red-800",
+          }[status as string] || "bg-gray-100 text-gray-800";
 
         return (
           <span className={`px-2 py-1 rounded-full text-sm ${statusClass}`}>
@@ -88,8 +115,15 @@ function DealerRequestTable() {
       },
     },
     {
-      accessorKey: "Customer",
-      header: "Customer",
+      accessorKey: "userId.firstName",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Customer <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original.userId.firstName} {row.original.userId.lastName}
@@ -97,17 +131,44 @@ function DealerRequestTable() {
       ),
     },
     {
-      accessorKey: "Request Date",
-      header: "Request Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Request Date <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.createdAt.slice(0, 10)}</div>
+        <div className="capitalize text-center">
+          {row.original.createdAt.slice(0, 10)}
+        </div>
       ),
     },
     {
-      id: "Action",
+      id: "action",
       header: "Action",
       enableHiding: false,
       cell: ({ row }) => {
+        const requestId = row.original._id;
+        const { status } = row.original;
+
+        let fulfillmentPath = `/dealer/fulfillment/${requestId}/`;
+        if (
+          status === "Approved" ||
+          status === "In Progress" ||
+          status === "Ready for Delivery"
+        ) {
+          fulfillmentPath += "preparetion";
+        } else if (
+          status === "Awaiting Delivery" ||
+          status === "Confirmation For Delivery" ||
+          status === "Delivered"
+        ) {
+          fulfillmentPath += "delivery";
+        }
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -117,19 +178,7 @@ function DealerRequestTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <Link
-                href={
-                  row.original.status === "Approved" ||
-                  row.original.status === "In Progress" ||
-                  row.original.status === "Ready for Delivery"
-                    ? `/dealer/fulfillment/${row.original._id}/preparetion`
-                    : row.original.status === "Awating Delivery" ||
-                      row.original?.status === "Confirmation For Delivery" ||
-                      row.original.status == "Delivered"
-                    ? `/dealer/fulfillment/${row.original._id}/delivery`
-                    : `/dealer/fulfillment/${row.original._id}/`
-                }
-              >
+              <Link href={fulfillmentPath}>
                 <DropdownMenuItem>View Details</DropdownMenuItem>
               </Link>
               <DropdownMenuItem>Update Status</DropdownMenuItem>

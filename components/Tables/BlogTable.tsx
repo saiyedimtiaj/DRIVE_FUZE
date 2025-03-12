@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import DataTable from "../Shared/Table";
 import { TBlog } from "@/type";
 import { Button } from "../ui/button";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowUpDown, Pencil, Plus, Trash2 } from "lucide-react";
 import { useDeleteBlog, useGetAllBlog } from "@/hooks/blog.hooks";
 import CreateBlogModel from "../Modal/CreateBlogModel";
 import UpdateBlogModel from "../Modal/UpdateBlogModal";
@@ -64,26 +64,58 @@ function BlogTable() {
   const columns: ColumnDef<TBlog>[] = [
     {
       accessorKey: "title",
-      header: "title",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Title
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => <div className="capitalize">{row.original.title}</div>,
     },
     {
-      accessorKey: "Category",
-      header: "Category",
+      accessorKey: "category",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">{row.original?.category}</div>
       ),
     },
     {
-      accessorKey: "Author",
-      header: "Author",
+      accessorKey: "author",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Author
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">{row.original?.author}</div>
       ),
     },
     {
-      accessorKey: "Date",
-      header: "Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original?.createdAt?.slice(0, 10)}
@@ -91,8 +123,16 @@ function BlogTable() {
       ),
     },
     {
-      accessorKey: "Status",
-      header: "Status",
+      accessorKey: "status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <span className="px-2 py-1 rounded-full text-sm bg-green-100 text-green-800">
           {row.original.status}
@@ -101,7 +141,6 @@ function BlogTable() {
     },
     {
       id: "Action",
-      header: "Action",
       enableHiding: false,
       cell: ({ row }) => {
         return (

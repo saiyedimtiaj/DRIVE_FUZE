@@ -18,6 +18,8 @@ import DataTable from "../Shared/Table";
 import { TUser } from "@/type";
 import { useGetAllCustomers } from "@/hooks/auth.hooks";
 import LoaderScreen from "../Shared/Loader";
+import { Button } from "../ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 function CustomerTable() {
   const { data, isLoading } = useGetAllCustomers();
@@ -36,7 +38,7 @@ function CustomerTable() {
       accessorKey: "Customer Name",
       header: "Customer Name",
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original.firstName} {row.original.lastName}
         </div>
       ),
@@ -50,16 +52,38 @@ function CustomerTable() {
     },
     {
       accessorKey: "email",
-      header: "email",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Email
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.email}</div>
+        <div className="lowercase">{row.getValue("email")}</div>
       ),
     },
     {
-      accessorKey: "License Number",
-      header: "License Number",
+      accessorKey: "licenseNumber",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            License Number
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.licenseNumber}</div>
+        <div className="capitalize text-center">
+          {row.original?.licenseNumber}
+        </div>
       ),
     },
     {
@@ -77,26 +101,56 @@ function CustomerTable() {
       ),
     },
     {
-      accessorKey: "Salary",
-      header: "Salary",
+      accessorKey: "salary",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Salary
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.salary}</div>
+        <div className="capitalize text-center">{row.original?.salary}</div>
       ),
     },
     {
-      accessorKey: "Active Subscriptions",
-      header: "Active Subscriptions",
+      accessorKey: "activeSubscriptionCount",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Active Subscriptions
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.activeSubscriptionCount}
         </div>
       ),
     },
     {
-      accessorKey: "Joined At",
-      header: "Joined At",
+      accessorKey: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Joined At
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.createdAt?.slice(0, 10)}
         </div>
       ),

@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import DataTable from "../Shared/Table";
 import { TTestimonial } from "@/type";
 import { Button } from "../ui/button";
-import { Pencil, Plus, Star, Trash2 } from "lucide-react";
+import { ArrowUpDown, Pencil, Plus, Star, Trash2 } from "lucide-react";
 import CreateTestimonialModel from "../Modal/AddTestimonialTable";
 import {
   useDeleteTestimonial,
@@ -68,19 +68,43 @@ function TestimonialTable() {
   const columns: ColumnDef<TTestimonial>[] = [
     {
       accessorKey: "customerName",
-      header: "Customer",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Customer
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">{row.original.customerName}</div>
       ),
     },
     {
-      accessorKey: "Role",
-      header: "Role",
+      accessorKey: "role",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Role
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => <div className="capitalize">{row.original?.role}</div>,
     },
     {
-      accessorKey: "Rating",
-      header: "Rating",
+      accessorKey: "rating",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Rating
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="flex">
           {Array.from({ length: Number(row.original.rating) }).map((_, i) => (
@@ -90,8 +114,16 @@ function TestimonialTable() {
       ),
     },
     {
-      accessorKey: "Date",
-      header: "Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original?.createdAt?.slice(0, 10)}
@@ -99,8 +131,16 @@ function TestimonialTable() {
       ),
     },
     {
-      accessorKey: "Status",
-      header: "Status",
+      accessorKey: "status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <span className="px-2 py-1 rounded-full text-sm bg-green-100 text-green-800">
           {row.original.status}

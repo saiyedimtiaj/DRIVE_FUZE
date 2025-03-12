@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Column,
   ColumnDef,
   ColumnFiltersState,
   Row,
@@ -18,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import DataTable from "../Shared/Table";
 import { TDealerSupport } from "@/type";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { ArrowUpDown, Plus } from "lucide-react";
 import { useUser } from "@/lib/user.provider";
 import { useGetAllDealerSupport } from "@/hooks/dealerSupport.hooks";
 import AddDealerSupportModal from "../Modal/AddDealerSupportModal";
@@ -28,7 +29,7 @@ import LoaderScreen from "../Shared/Loader";
 const statusColors: { [key: string]: string } = {
   Open: "bg-green-100 text-green-800",
   "In Progress": "bg-blue-100 text-blue-800",
-  Resolved: "bg-gray-100 text-gray-800",
+  resolve: "bg-gray-100 text-gray-800",
   Pending: "bg-yellow-100 text-yellow-800",
 };
 
@@ -52,18 +53,50 @@ function DealerSupport() {
     ...(user?.role === "admin"
       ? [
           {
-            accessorKey: "Customer Name",
-            header: "Customer Name",
+            accessorKey: "firstName",
+            header: ({
+              column,
+            }: {
+              column: Column<TDealerSupport, unknown>;
+            }) => {
+              return (
+                <Button
+                  variant="ghost"
+                  onClick={() =>
+                    column.toggleSorting(column.getIsSorted() === "asc")
+                  }
+                >
+                  Customer Number
+                  <ArrowUpDown />
+                </Button>
+              );
+            },
             cell: ({ row }: { row: Row<TDealerSupport> }) => (
-              <div className="capitalize">
+              <div className="capitalize text-center">
                 {row.original.dealerId?.firstName}{" "}
                 {" " + row.original.dealerId?.lastName}
               </div>
             ),
           },
           {
-            accessorKey: "Email",
-            header: "Email",
+            accessorKey: "dealerId.email",
+            header: ({
+              column,
+            }: {
+              column: Column<TDealerSupport, unknown>;
+            }) => {
+              return (
+                <Button
+                  variant="ghost"
+                  onClick={() =>
+                    column.toggleSorting(column.getIsSorted() === "asc")
+                  }
+                >
+                  Email
+                  <ArrowUpDown />
+                </Button>
+              );
+            },
             cell: ({ row }: { row: Row<TDealerSupport> }) => (
               <div className="capitalize">{row.original.dealerId?.email}</div>
             ),
@@ -76,18 +109,38 @@ function DealerSupport() {
       cell: ({ row }) => <div className="capitalize">{row.original.issue}</div>,
     },
     {
-      accessorKey: "Type",
-      header: "Type",
+      accessorKey: "issueType",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Type
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.issueType}</div>
+        <div className="capitalize text-center">{row.original?.issueType}</div>
       ),
     },
     {
-      accessorKey: "Priority",
-      header: "Priority",
+      accessorKey: "priority",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Priority
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <span
-          className={`px-2 py-1 rounded-full text-sm ${
+          className={`px-2 py-1 mx-auto rounded-full text-sm ${
             row.original?.priority === "High"
               ? "bg-red-100 text-red-800"
               : row.original?.priority === "Medium"
@@ -100,11 +153,21 @@ function DealerSupport() {
       ),
     },
     {
-      accessorKey: "Status",
-      header: "Status",
+      accessorKey: "status",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Status
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <span
-          className={`px-2 py-1 rounded-full text-sm ${
+          className={`px-2 py-1 mx-auto rounded-full text-sm ${
             statusColors[row.original.status]
           }`}
         >
@@ -113,30 +176,50 @@ function DealerSupport() {
       ),
     },
     {
-      accessorKey: "Date Raised",
-      header: "Date Raised",
+      accessorKey: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Date Raised
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.createdAt?.slice(0, 10)}
         </div>
       ),
     },
     {
-      accessorKey: "Last Updated",
-      header: "Last Updated",
+      accessorKey: "updatedAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Last Updated
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.updatedAt?.slice(0, 10)}
         </div>
       ),
     },
     {
       id: "Action",
-      header: "Action",
+      header: () => <div className="text-center">Action</div>,
       enableHiding: false,
       cell: ({ row }) => {
         return (
-          <div className="">
+          <div className="text-center">
             <Button
               variant="link"
               onClick={() => {

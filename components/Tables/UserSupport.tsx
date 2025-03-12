@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Column,
   ColumnDef,
   ColumnFiltersState,
   Row,
@@ -18,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import DataTable from "../Shared/Table";
 import { TCareCare } from "@/type";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { ArrowUpDown, Plus } from "lucide-react";
 import { useUser } from "@/lib/user.provider";
 import AddCarCareModal from "../Modal/AddCarCareModal";
 import { useGetAllCarCare } from "@/hooks/carcare.hooks";
@@ -54,32 +55,67 @@ function UserSupport() {
     ...(user?.role === "admin"
       ? [
           {
-            accessorKey: "Customer Name",
-            header: "Customer Name",
+            accessorKey: "userId.firstName",
+            header: ({ column }: { column: Column<TCareCare, unknown> }) => (
+              <Button
+                variant="ghost"
+                onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+                }
+              >
+                Customer Name
+                <ArrowUpDown />
+              </Button>
+            ),
             cell: ({ row }: { row: Row<TCareCare> }) => (
               <div className="capitalize">
-                {row.original.userId?.firstName}{" "}
-                {" " + row.original.userId?.lastName}
+                {row.original.userId?.firstName} {row.original.userId?.lastName}
               </div>
             ),
           },
           {
-            accessorKey: "Email",
-            header: "Email",
+            accessorKey: "userId.email",
+            header: ({ column }: { column: Column<TCareCare, unknown> }) => (
+              <Button
+                variant="ghost"
+                onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+                }
+              >
+                Email
+                <ArrowUpDown />
+              </Button>
+            ),
             cell: ({ row }: { row: Row<TCareCare> }) => (
-              <div className="capitalize">{row.original.userId?.email}</div>
+              <div className="lowercase">{row.original.userId?.email}</div>
             ),
           },
         ]
       : []),
     {
       accessorKey: "issue",
-      header: "Issue",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Issue
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => <div className="capitalize">{row.original.issue}</div>,
     },
     {
-      accessorKey: "Priority",
-      header: "Priority",
+      accessorKey: "priority",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Priority
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <span
           className={`px-2 py-1 rounded-full text-sm ${
@@ -95,8 +131,16 @@ function UserSupport() {
       ),
     },
     {
-      accessorKey: "Status",
-      header: "Status",
+      accessorKey: "status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <span
           className={`px-2 py-1 rounded-full text-sm ${
@@ -108,26 +152,41 @@ function UserSupport() {
       ),
     },
     {
-      accessorKey: "Date Raised",
-      header: "Date Raised",
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date Raised
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.createdAt?.slice(0, 10)}
         </div>
       ),
     },
     {
-      accessorKey: "Last Updated",
-      header: "Last Updated",
+      accessorKey: "updatedAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Last Updated
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.updatedAt?.slice(0, 10)}
         </div>
       ),
     },
     {
       id: "Action",
-      header: "Action",
       enableHiding: false,
       cell: ({ row }) => {
         return (
@@ -139,7 +198,7 @@ function UserSupport() {
               }}
               variant="link"
             >
-              view details
+              View Details
             </Button>
           </div>
         );

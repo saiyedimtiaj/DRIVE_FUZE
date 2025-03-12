@@ -19,6 +19,8 @@ import { useGetUserRequestsQuery } from "@/hooks/request.hooks";
 import { TRequest } from "@/type";
 import Link from "next/link";
 import LoaderScreen from "../Shared/Loader";
+import { Button } from "../ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 function UserRequestTable() {
   const { data, isLoading } = useGetUserRequestsQuery();
@@ -32,26 +34,51 @@ function UserRequestTable() {
 
   const columns: ColumnDef<TRequest>[] = [
     {
-      accessorKey: "Reg",
-      header: "Reg",
+      accessorKey: "carId.registrationNumber",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Reg <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize ">
           {row.original.carId.registrationNumber}
         </div>
       ),
+      filterFn: (row, columnId, filterValue) =>
+        row.original.carId.registrationNumber
+          .toLowerCase()
+          .includes(filterValue.toLowerCase()),
     },
     {
-      accessorKey: "Brand",
-      header: "Brand",
+      accessorKey: "carId.brand",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Brand <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.brand}</div>
+        <div className="capitalize ">{row.original.carId.brand}</div>
       ),
     },
     {
-      accessorKey: "Variant",
-      header: "Variant",
+      accessorKey: "carId.variant",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Variant <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.model}</div>
+        <div className="capitalize ">{row.original.carId.model}</div>
       ),
     },
     {
@@ -76,10 +103,20 @@ function UserRequestTable() {
     },
 
     {
-      accessorKey: "Price (p/m)",
-      header: "Price (p/m)",
+      accessorKey: "carId.price",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Price (p/m)
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">£ {row.original.carId.price}</div>
+        <div className="capitalize text-center">
+          £ {row.original.carId.price}
+        </div>
       ),
     },
     {
@@ -90,10 +127,19 @@ function UserRequestTable() {
       ),
     },
     {
-      accessorKey: "Request Date",
-      header: "Request Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Request Date <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.createdAt.slice(0, 10)}</div>
+        <div className="capitalize text-center">
+          {row.original.createdAt.slice(0, 10)}
+        </div>
       ),
     },
     {

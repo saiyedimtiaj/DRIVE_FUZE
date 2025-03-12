@@ -22,11 +22,12 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useGetAllCustomerCheck } from "@/hooks/customerCheck.hooks";
 import { TCustomerCheck } from "@/type";
 import Link from "next/link";
 import LoaderScreen from "../Shared/Loader";
+import { Badge } from "../ui/badge";
 
 function RiskAssessmentTable() {
   const { data, isLoading } = useGetAllCustomerCheck();
@@ -41,8 +42,18 @@ function RiskAssessmentTable() {
 
   const columns: ColumnDef<TCustomerCheck>[] = [
     {
-      accessorKey: "CustomerName",
-      header: "Customer Name",
+      accessorKey: "requestId.customerInfo.firstName",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Customer Name
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original?.requestId?.customerInfo?.firstName}{" "}
@@ -51,8 +62,18 @@ function RiskAssessmentTable() {
       ),
     },
     {
-      accessorKey: "Address",
-      header: "Address",
+      accessorKey: "requestId.address.addressLine1",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Address
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original?.requestId?.address?.addressLine1}
@@ -60,15 +81,35 @@ function RiskAssessmentTable() {
       ),
     },
     {
-      accessorKey: "email",
-      header: "Email",
+      accessorKey: "userId.email",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Email
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <div className="lowercase">{row.original?.userId?.email}</div>
       ),
     },
     {
-      accessorKey: "Phone",
-      header: "Phone",
+      accessorKey: "requestId.customerInfo.phoneNumber",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Phone
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original?.requestId?.customerInfo?.phoneNumber}
@@ -76,19 +117,54 @@ function RiskAssessmentTable() {
       ),
     },
     {
-      accessorKey: "Risk Score",
-      header: "Risk Score",
-      cell: ({ row }) => <div>{row.original?.score}</div>,
+      accessorKey: "score",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Score
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="text-center">{row.original?.score}</div>
+      ),
     },
+
     {
-      accessorKey: "Status",
+      accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => <div>{row.original?.status}</div>,
+      cell: ({ row }) => {
+        const status = row.original?.status;
+
+        let color = "bg-gray-500";
+        if (status === "Pending") color = "bg-yellow-500 ";
+        else if (status === "Verified") color = "bg-green-500";
+
+        return <Badge className={`${color} text-white`}>{status}</Badge>;
+      },
     },
     {
-      accessorKey: "Last Checked",
-      header: "Last Checked",
-      cell: ({ row }) => <div>{row.original?.updatedAt?.slice(0, 10)}</div>,
+      accessorKey: "updatedAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Last Checked
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="text-center">
+          {row.original?.updatedAt?.slice(0, 10)}
+        </div>
+      ),
     },
     {
       id: "Action",

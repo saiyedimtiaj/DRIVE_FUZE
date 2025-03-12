@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useGetAllRequest } from "@/hooks/request.hooks";
 import Link from "next/link";
 import LoaderScreen from "../Shared/Loader";
@@ -41,40 +41,92 @@ function TrasntionTable() {
 
   const columns: ColumnDef<TRequest>[] = [
     {
-      accessorKey: "Reg",
-      header: "Reg",
+      accessorKey: "carId.registrationNumber",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Reg
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original.carId.registrationNumber}
         </div>
       ),
     },
     {
-      accessorKey: "Product Name",
-      header: "Product Name",
+      accessorKey: "carId.model",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Model
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.model}</div>
+        <div className="capitalize text-center">{row.original.carId.model}</div>
       ),
     },
     {
-      accessorKey: "Brand",
-      header: "Brand",
+      accessorKey: "carId.brand",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Brand
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.brand}</div>
+        <div className="capitalize text-center">{row.original.carId.brand}</div>
       ),
     },
     {
-      accessorKey: "Variant",
-      header: "Variant",
+      accessorKey: "carId.variant",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Varient
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.model}</div>
+        <div className="capitalize text-center">
+          {row.original.carId.variant}
+        </div>
       ),
     },
     {
-      accessorKey: "Price (p/m)",
-      header: "Price (p/m)",
+      accessorKey: "leasePrice",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Price (p/m)
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">£{row.original.leasePrice}</div>
+        <div className="capitalize text-center">£{row.original.leasePrice}</div>
       ),
     },
     {
@@ -97,20 +149,34 @@ function TrasntionTable() {
           if (status === "In Review") return "bg-blue-100 text-blue-800";
           if (status === "Approved") return "bg-green-100 text-green-800";
           if (status === "Declined") return "bg-red-100 text-red-800";
-          return "bg-gray-100 text-gray-800"; // Default class
+          return "bg-gray-200 text-gray-800"; // Default class
         })();
 
         return (
-          <span className={`px-2 py-1 rounded-full text-sm ${statusClass}`}>
+          <span
+            className={`px-2 py-1 text-nowrap rounded-full text-sm ${statusClass}`}
+          >
             {status}
           </span>
         );
       },
     },
     {
-      accessorKey: "Risk Score",
-      header: "Risk Score",
-      cell: ({ row }) => <div className="capitalize">{row.original.score}</div>,
+      accessorKey: "score",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Risk Score
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.original.score}</div>
+      ),
     },
     {
       accessorKey: "Dealer",
@@ -120,10 +186,22 @@ function TrasntionTable() {
       ),
     },
     {
-      accessorKey: "Request Date",
-      header: "Request Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Request Date
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.createdAt.slice(0, 10)}</div>
+        <div className="capitalize text-center">
+          {row.original.createdAt.slice(0, 10)}
+        </div>
       ),
     },
     {

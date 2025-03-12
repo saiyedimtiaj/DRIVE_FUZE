@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useGetAllDealer } from "@/hooks/auth.hooks";
 import LoaderScreen from "../Shared/Loader";
 import UserToDealerUpdate from "../Modal/UserToDealerUpdateModal";
@@ -41,56 +41,132 @@ function AllDealersTable() {
 
   const columns: ColumnDef<TUser>[] = [
     {
-      accessorKey: "Dealer Name",
-      header: "Dealer Name",
+      accessorKey: "firstName",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Dealer Name
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original.firstName} {row.original.lastName}
         </div>
       ),
     },
     {
-      accessorKey: "Business Type",
-      header: "Business Type",
+      accessorKey: "businessType",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Business Type
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.businessType}</div>
+        <div className="capitalize text-center">
+          {row.original?.businessType}
+        </div>
       ),
     },
     {
       accessorKey: "email",
-      header: "email",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            email
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.email}</div>
+        <div className="capitalize text-center">{row.original?.email}</div>
       ),
     },
     {
-      accessorKey: "Phone",
-      header: "Phone",
+      accessorKey: "primaryPhone",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Phone
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.primaryPhone}</div>
+        <div className="capitalize text-center">
+          {row.original?.primaryPhone}
+        </div>
       ),
     },
     {
-      accessorKey: "Active Inventory",
-      header: "Active Inventory",
+      accessorKey: "activeCarCount",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Active Inventory
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.activeCarCount}</div>
+        <div className="capitalize text-center">
+          {row.original?.activeCarCount}
+        </div>
       ),
     },
     {
-      accessorKey: "Active Subscriptions",
-      header: "Active Subscriptions",
+      accessorKey: "activeSubscriptionCount",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Active Subscriptions
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.activeSubscriptionCount}
         </div>
       ),
     },
     {
-      accessorKey: "Request Date",
-      header: "Request Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Request Date
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.createdAt?.slice(0, 10)}
         </div>
       ),

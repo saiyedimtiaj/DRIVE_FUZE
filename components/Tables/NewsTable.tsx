@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import DataTable from "../Shared/Table";
 import { TNews } from "@/type";
 import { Button } from "../ui/button";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowUpDown, Pencil, Plus, Trash2 } from "lucide-react";
 import AddNewsModel from "../Modal/AddNewsModal";
 import { useDeleteNews, useGetAllNews } from "@/hooks/news.hooks";
 import UpdateNewsModel from "../Modal/UpdateNewsModal";
@@ -63,19 +63,43 @@ function NewsTable() {
   const columns: ColumnDef<TNews>[] = [
     {
       accessorKey: "title",
-      header: "title",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Title
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => <div className="capitalize">{row.original.title}</div>,
     },
     {
-      accessorKey: "Category",
-      header: "Category",
+      accessorKey: "category",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">{row.original?.category}</div>
       ),
     },
     {
-      accessorKey: "Date",
-      header: "Date",
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <div className="capitalize">
           {row.original?.createdAt?.slice(0, 10)}
@@ -83,8 +107,16 @@ function NewsTable() {
       ),
     },
     {
-      accessorKey: "Status",
-      header: "Status",
+      accessorKey: "status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
         <span className="px-2 py-1 rounded-full text-sm bg-green-100 text-green-800">
           {row.original.status}

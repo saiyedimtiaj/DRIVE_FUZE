@@ -21,6 +21,8 @@ import { useGetAllSubscription } from "@/hooks/subscription.hooks";
 import { useUser } from "@/lib/user.provider";
 import Link from "next/link";
 import LoaderScreen from "../Shared/Loader";
+import { Button } from "../ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 function SubscriptionTable() {
   const { data, isLoading } = useGetAllSubscription();
@@ -35,40 +37,92 @@ function SubscriptionTable() {
 
   const columns: ColumnDef<ISubscription>[] = [
     {
-      accessorKey: "Reg",
-      header: "Reg",
+      accessorKey: "carId.registrationNumber",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Reg
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original.carId.registrationNumber}
         </div>
       ),
     },
     {
-      accessorKey: "Vehicle",
-      header: "Vehicle",
+      accessorKey: "carId.model",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Model
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.model}</div>
+        <div className="capitalize text-center">{row.original.carId.model}</div>
       ),
     },
     {
-      accessorKey: "Brand",
-      header: "Brand",
+      accessorKey: "carId.brand",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Brand
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.brand}</div>
+        <div className="capitalize text-center">{row.original.carId.brand}</div>
       ),
     },
     {
-      accessorKey: "Variant",
-      header: "Variant",
+      accessorKey: "carId.variant",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Varient
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original.carId.variant}</div>
+        <div className="capitalize text-center">
+          {row.original.carId.variant}
+        </div>
       ),
     },
     {
-      accessorKey: "Price (p/m)",
-      header: "Price (p/m)",
+      accessorKey: "leasePrice",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Price (p/m)
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.original?.leasePrice}</div>
+        <div className="capitalize text-center">{row.original?.leasePrice}</div>
       ),
     },
     ...(user?.role !== "user"
@@ -102,19 +156,39 @@ function SubscriptionTable() {
       },
     },
     {
-      accessorKey: "Start Date",
-      header: "Start Date",
+      accessorKey: "leaseStartDate",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Start Date
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.leaseStartDate?.slice(0, 10)}
         </div>
       ),
     },
     {
-      accessorKey: "End Date",
-      header: "End Date",
+      accessorKey: "leaseEndDate",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            End Date
+            <ArrowUpDown />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <div className="capitalize">
+        <div className="capitalize text-center">
           {row.original?.leaseEndDate?.slice(0, 10)}
         </div>
       ),
@@ -126,6 +200,7 @@ function SubscriptionTable() {
       cell: ({ row }) => {
         return (
           <Link
+            className="text-nowrap"
             href={
               user?.role === "dealer"
                 ? `/dealer/subscriptions/${row.original?._id}`
