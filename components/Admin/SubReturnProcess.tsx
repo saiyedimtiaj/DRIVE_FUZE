@@ -97,7 +97,7 @@ const SubReturnProcess = ({
             description: "The vehicle return has been processed successfully.",
           });
           refetch();
-          router.push("/admin/subscriptions");
+          router.push("/dealer/subscriptions");
         } else {
           toast({
             title: "Return Failed",
