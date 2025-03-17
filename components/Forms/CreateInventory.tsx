@@ -14,13 +14,16 @@ import { TCar } from "@/type";
 import CRMultiFile from "../Shared/CRMultiFile";
 import { Loader } from "lucide-react";
 import CRTextEditor from "../Shared/CRTextEditor";
+import { useRouter } from "next/navigation";
 
 const CreateInventory = () => {
   const [images, setImages] = useState<(File | string)[]>([]);
   const [defaultValue, setDefaultValue] = useState<TCar | undefined>();
   const { mutate: createCar, isPending } = useCreateCar();
+  const route = useRouter();
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
     const formData = new FormData();
     formData.set("data", JSON.stringify(data));
     for (const image of images) {
@@ -34,7 +37,7 @@ const CreateInventory = () => {
             title: "Success",
             description: data?.message,
           });
-          // route.push("/");
+          route.push("/dealer/inventory");
         } else {
           toast({
             title: "Failed",
@@ -58,34 +61,39 @@ const CreateInventory = () => {
           <AutoFillForm setDefaultValue={setDefaultValue} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <CRInput name="model" label="Vehicle Name*" />
+              <CRInput required name="model" label="Vehicle Name*" />
             </div>
             <div className="space-y-2">
-              <CRInput name="brand" label="Brand*" />
+              <CRInput required name="brand" label="Brand*" />
             </div>
             <div className="space-y-2">
-              {" "}
-              <CRInput label="Variant*" name="variant" placeholder="Liv" />
+              <CRInput
+                required
+                label="Variant*"
+                name="variant"
+                placeholder="Liv"
+              />
             </div>
             <div className="space-y-2">
-              <CRInput label="Year*" name="yearOfManufacture" />
+              <CRInput required label="Year*" name="yearOfManufacture" />
             </div>
             <div className="space-y-2">
               <CRSelect
                 label="Fuel type"
                 name="fuelType"
                 placeholder="Fuel type"
+                required
                 items={fuelTypeSelectItems}
               />
             </div>
             <div className="space-y-2">
-              <CRInput label="Price*" name="price" type="number" />
+              <CRInput required label="Price*" name="price" type="number" />
             </div>
             <div className="space-y-2">
-              <CRInput label="Mileage*" name="mileage" type="number" />
+              <CRInput required label="Mileage*" name="mileage" type="number" />
             </div>
             <div className="space-y-2">
-              <CRInput label="Location*" name="location" />
+              <CRInput required label="Location*" name="location" />
             </div>
           </div>
         </Card>
@@ -97,16 +105,22 @@ const CreateInventory = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <CRInput label="colour" name="colour" />
-            </div>
-            <div className="space-y-2">
-              <CRInput label="C02 emissions (g/km)" name="co2Emissions" />
-            </div>
-            <div className="space-y-2">
-              <CRInput label="Gearbox" name="gearbox" />
+              <CRInput required label="colour" name="colour" />
             </div>
             <div className="space-y-2">
               <CRInput
+                required
+                label="C02 emissions (g/km)"
+                name="co2Emissions"
+                type="number"
+              />
+            </div>
+            <div className="space-y-2">
+              <CRInput required label="Gearbox" name="gearbox" />
+            </div>
+            <div className="space-y-2">
+              <CRInput
+                required
                 label="Engine size (cc)"
                 name="engineCapacity"
                 type="number"
@@ -114,23 +128,24 @@ const CreateInventory = () => {
             </div>
             <div className="space-y-2">
               <CRInput
+                required
                 label="Electric Range (km)"
                 name="electricRange"
                 type="number"
               />
             </div>
             <div className="space-y-2">
-              <CRInput label="Drive Train" name="driveTrain" />
+              <CRInput required label="Drive Train" name="driveTrain" />
             </div>
             <div className="space-y-2">
-              <CRInput label="Euro Status" name="euroStatus" />
+              <CRInput required label="Euro Status" name="euroStatus" />
             </div>
           </div>
 
           <h2 className="text-xl font-semibold mb-3 mt-5">
             Upload Vehicle Images
           </h2>
-          <CRMultiFile images={images} setImages={setImages} />
+          <CRMultiFile images={images} required setImages={setImages} />
         </Card>
 
         {/* Vehicle Description */}
@@ -197,7 +212,11 @@ const AutoFillForm = ({
   return (
     <div className="mb-4 flex items-end gap-3">
       <div className="w-full">
-        <CRInput name="registrationNumber" label="Registration Number*" />
+        <CRInput
+          required
+          name="registrationNumber"
+          label="Registration Number*"
+        />
       </div>
       <Button
         type="button"

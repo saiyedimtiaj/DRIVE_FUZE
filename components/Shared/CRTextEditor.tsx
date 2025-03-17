@@ -34,15 +34,20 @@ const CRTextEditor = ({ name }: TProps) => {
         name={name}
         control={control} // Use control from context
         rules={{ required: true }}
-        render={({ field }) => (
-          <ReactQuill
-            className="h-[130px] lg:h-[160px]"
-            placeholder="Write the overview"
-            theme="snow"
-            value={field.value || ""}
-            onChange={field.onChange}
-            modules={modules}
-          />
+        render={({ field, fieldState }) => (
+          <div>
+            <ReactQuill
+              className="h-[130px] lg:h-[160px]"
+              placeholder="Write the overview"
+              theme="snow"
+              value={field.value || ""}
+              onChange={field.onChange}
+              modules={modules}
+            />
+            {fieldState?.isTouched && !field.value && (
+              <p className="text-red-500 text-sm">This field is required.</p>
+            )}
+          </div>
         )}
       />
     </div>
