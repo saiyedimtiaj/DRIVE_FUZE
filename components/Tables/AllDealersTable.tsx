@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
@@ -27,8 +28,10 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useGetAllDealer } from "@/hooks/auth.hooks";
 import LoaderScreen from "../Shared/Loader";
 import UserToDealerUpdate from "../Modal/UserToDealerUpdateModal";
+import { DealerDetailsModal } from "../Modal/DealerDetailsModal";
 
 function AllDealersTable() {
+  const [selectedDealer, setSelectedDealer] = React.useState<any>(null);
   const [isOpen, setIsOpen] = React.useState(false);
   const { data, isLoading, refetch } = useGetAllDealer();
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -38,6 +41,10 @@ function AllDealersTable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const handleViewDetails = (dealer: any) => {
+    setSelectedDealer(dealer);
+  };
 
   const columns: ColumnDef<TUser>[] = [
     {
@@ -175,7 +182,7 @@ function AllDealersTable() {
       id: "Action",
       header: "Action",
       enableHiding: false,
-      cell: ({}) => {
+      cell: ({ row }) => {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -185,9 +192,9 @@ function AllDealersTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>View Details</DropdownMenuItem>
-              <DropdownMenuItem>Update Status</DropdownMenuItem>
-              <DropdownMenuItem>Add Notes</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleViewDetails(row.original)}>
+                View Details
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -229,13 +236,20 @@ function AllDealersTable() {
           }
           className="max-w-sm"
         />
-        <Button onClick={() => setIsOpen(true)}>Add Dealer</Button>
+        <Button className="bg-burgundy" onClick={() => setIsOpen(true)}>
+          Add Dealer
+        </Button>
       </div>
       <DataTable table={table} />
       <UserToDealerUpdate
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         refetch={refetch}
+      />
+      <DealerDetailsModal
+        dealer={selectedDealer}
+        isOpen={!!selectedDealer}
+        onClose={() => setSelectedDealer(null)}
       />
     </div>
   );

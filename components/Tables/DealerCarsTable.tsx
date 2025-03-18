@@ -222,6 +222,11 @@ function DealerCarsTable() {
                   Edit Car
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={`/dealer/inventory/${row.original?._id}/details`}>
+                  View Details
+                </Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -240,7 +245,7 @@ function DealerCarsTable() {
         id: "actions",
         header: "Action",
         enableHiding: false,
-        cell: ({}) => {
+        cell: ({ row }) => {
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -251,6 +256,11 @@ function DealerCarsTable() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <Link href={`/admin/inventory/${row.original?._id}`}>
+                    View Details
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           );

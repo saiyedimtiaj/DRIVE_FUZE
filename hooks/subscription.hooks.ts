@@ -1,4 +1,5 @@
 import {
+  addReturnCustomerComment,
   createSubscription,
   getAdminDashboardData,
   getCurrentSubscription,
@@ -13,6 +14,14 @@ export const useCreateSubsctiption = () => {
     mutationKey: ["CREATE_SUBSCRIPTION"],
     mutationFn: async (payload: { deliveryId: string }) =>
       await createSubscription(payload),
+  });
+};
+
+export const useAddReturnComment = () => {
+  return useMutation({
+    mutationKey: ["RETURN_COMMENT"],
+    mutationFn: async (payload: { comment: string; id: string }) =>
+      await addReturnCustomerComment(payload),
   });
 };
 

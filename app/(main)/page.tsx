@@ -24,77 +24,72 @@ const page = () => {
 
           {/* Scrollable container for responsive comparison grid */}
           <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-auto">
-            <div className="w-[600px] md:w-full grid grid-cols-4 gap-4 p-6 text-center">
+            <div className="w-[600px] md:w-full grid grid-cols-4 gap-4 p-6">
               {/* Headers */}
-              <div className="flex justify-center items-center">
+              <div className="text-center">
                 <span className="text-xl font-bold text-burgundy">
                   Company 1
                 </span>
               </div>
-              <div className="flex justify-center items-center">
+              <div className="text-center">
                 <span className="text-xl font-bold text-primary/80">
                   Leasing
                 </span>
               </div>
-              <div className="flex justify-center items-center">
+              <div className="text-center">
                 <span className="text-xl font-bold text-primary/80">PCP</span>
               </div>
 
               {/* No deposit */}
-              <div className="flex justify-center items-center font-medium">
-                No deposit
+              <div className="font-medium"></div>
+              <div className="text-center">
+                <Check className="h-6 w-6 text-green-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <Check className="h-6 w-6 text-green-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
-              </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
 
               {/* Insurance & tax */}
-              <div className="flex justify-center items-center font-medium">
-                Car insurance and road tax included
+              <div className="font-medium">No deposit</div>
+              <div className="text-center">
+                <Check className="h-6 w-6 text-green-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <Check className="h-6 w-6 text-green-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
-              </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
 
               {/* Maintenance */}
-              <div className="flex justify-center items-center font-medium">
-                Free maintenance
+              <div className="font-medium">
+                Car insurance and road tax included
               </div>
-              <div className="flex justify-center items-center">
-                <Check className="h-6 w-6 text-green-600" />
+              <div className="text-center">
+                <Check className="h-6 w-6 text-green-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
+              <div className="font-medium">Free maintenance</div>
 
               {/* Commitment */}
-              <div className="flex justify-center items-center font-medium">
-                No long-term commitment
+              <div className="text-center">
+                <Check className="h-6 w-6 text-green-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <Check className="h-6 w-6 text-green-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
+              <div className="text-center">
+                <X className="h-6 w-6 text-red-600 mx-auto" />
               </div>
-              <div className="flex justify-center items-center">
-                <X className="h-6 w-6 text-red-600" />
-              </div>
+              <div className="font-medium">No long term commitment</div>
             </div>
           </div>
         </div>

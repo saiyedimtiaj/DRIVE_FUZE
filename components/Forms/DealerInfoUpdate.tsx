@@ -88,6 +88,7 @@ export default function DealerUpdateInfo() {
               name="businessType"
               label="Business Type"
               items={BUSINESS_TYPES}
+              defaultValue={data?.data?.businessType}
             />
             <CRInput
               name="lastName"
@@ -116,7 +117,11 @@ export default function DealerUpdateInfo() {
         <Card className="p-6 mt-7">
           <h2 className="text-xl font-semibold mb-4">Primary Contact</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <CRInput name="primaryRole" label="Role" />
+            <CRInput
+              name="primaryRole"
+              label="Role"
+              defaultValue={data?.data?.primaryRole}
+            />
             <CRInput
               name="email"
               label="Email"
@@ -124,7 +129,11 @@ export default function DealerUpdateInfo() {
               onlyRead
               defaultValue={data?.data?.email}
             />
-            <CRInput name="primaryPhone" label="Phone" />
+            <CRInput
+              name="phone"
+              label="Phone"
+              defaultValue={data?.data?.phone}
+            />
           </div>
         </Card>
 
@@ -132,9 +141,22 @@ export default function DealerUpdateInfo() {
         <Card className="p-6 mt-7">
           <h2 className="text-xl font-semibold mb-4">Secondary Contact</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <CRInput name="secondaryRole" label="Role" />
-            <CRInput name="secondaryEmail" label="Email" type="email" />
-            <CRInput name="secondaryPhone" label="Phone" />
+            <CRInput
+              name="secondaryRole"
+              defaultValue={data?.data?.secondaryRole}
+              label="Role"
+            />
+            <CRInput
+              name="secondaryEmail"
+              defaultValue={data?.data?.secondaryEmail}
+              label="Email"
+              type="email"
+            />
+            <CRInput
+              name="secondaryPhone"
+              defaultValue={data?.data?.secondaryPhone}
+              label="Phone"
+            />
           </div>
         </Card>
 
@@ -142,10 +164,23 @@ export default function DealerUpdateInfo() {
         <Card className="p-6 mt-7">
           <h2 className="text-xl font-semibold mb-4">Business Address</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <CRInput name="street" label="Street Address" />
-            <CRInput name="city" label="City" />
-            <CRInput name="postcode" label="Postcode" />
-            <CRSelect name="country" label="Country" items={COUNTRIES} />
+            <CRInput
+              name="street"
+              label="Street Address"
+              defaultValue={data?.data?.street}
+            />
+            <CRInput name="city" label="City" defaultValue={data?.data?.city} />
+            <CRInput
+              name="postcode"
+              label="Postcode"
+              defaultValue={data?.data?.postcode}
+            />
+            <CRSelect
+              name="country"
+              defaultValue={data?.data?.country}
+              label="Country"
+              items={COUNTRIES}
+            />
           </div>
         </Card>
 
@@ -154,6 +189,7 @@ export default function DealerUpdateInfo() {
           <h2 className="text-xl font-semibold mb-4">Operating Hours</h2>
           <CRInput
             name="operatingHours"
+            defaultValue={data?.data?.operatingHours}
             label="Hours of Operation"
             placeholder="e.g., Mon-Fri, 9:00 AM - 5:00 PM"
           />

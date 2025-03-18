@@ -19,7 +19,11 @@ const UserLayout = () => {
   const { user } = useUser();
   const { mutate, isPending } = useCustomerPortal();
 
-  const activeSubscription = data?.data?.varient || "No Active Subscription";
+  const activeSubscription = data?.data?.carId
+    ? `${data.data.carId.brand || ""} ${data.data.carId.model || ""} ${
+        data.data.carId.variant || ""
+      }`
+    : "No Active Subscription";
 
   const handleGoToCustomerPortal = async () => {
     mutate(
@@ -58,7 +62,7 @@ const UserLayout = () => {
               <Link
                 href={
                   data?.data
-                    ? `/my-subscription/${data?.data?._id}`
+                    ? `dashboard/my-subscription/${data?.data?._id}`
                     : "/subscribes"
                 }
               >

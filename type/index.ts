@@ -176,6 +176,7 @@ export interface ISubscription {
   preparetionId: {
     customerComment: string;
   };
+  comment: string;
 }
 
 export type TBlog = {

@@ -20,6 +20,7 @@ type Props = {
   setImages: React.Dispatch<React.SetStateAction<File[] | undefined>>;
   pdiDocument: File | null;
   setPdiDocument: React.Dispatch<React.SetStateAction<File | null>>;
+  comment: string;
 };
 
 const ReturnForm = ({
@@ -30,6 +31,7 @@ const ReturnForm = ({
   setImages,
   pdiDocument,
   setPdiDocument,
+  comment,
 }: Props) => {
   const [currentReturnPhoto, setCurrentReturnPhoto] = useState(0);
 
@@ -122,7 +124,7 @@ const ReturnForm = ({
                     />
                     <button
                       type="button"
-                      className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
+                      className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-1 py-0.5"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRemovePhoto(index);
@@ -165,18 +167,7 @@ const ReturnForm = ({
 
         <div>
           <Label className="text-muted-foreground">Customer Comments</Label>
-          <Input
-            required
-            value={returnDetails.customerComments}
-            onChange={(e) =>
-              setReturnDetails((prev) => ({
-                ...prev,
-                customerComments: e.target.value,
-              }))
-            }
-            placeholder="Customer comments about the return"
-            className="mt-1"
-          />
+          <p>{comment}</p>
         </div>
 
         <div className="grid grid-cols-2 gap-4">

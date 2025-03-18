@@ -64,3 +64,18 @@ export const getDealerDashboardData = async () => {
     return err?.response?.data;
   }
 };
+
+export const addReturnCustomerComment = async (payload: {
+  comment: string;
+  id: string;
+}) => {
+  try {
+    const { data } = await axiosInstance.put(
+      `/subscription/add-comment/${payload.id}`,
+      { comment: payload.comment }
+    );
+    return data;
+  } catch (err: any) {
+    return err?.response?.data;
+  }
+};

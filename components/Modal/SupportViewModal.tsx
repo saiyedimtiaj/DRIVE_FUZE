@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUser } from "@/lib/user.provider";
 import { TCareCare, TMessages } from "@/type";
 import Image from "next/image";
@@ -34,6 +34,13 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
   const { data, refetch, isLoading } = useGetSingleCarCare(defaultValue?._id);
   const { mutate: statusChange, isPending: isStatusPending } =
     useChangeCarCareStatus();
+
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [data?.data?.messages]);
 
   const sendMessage = () => {
     const payload = {
@@ -78,7 +85,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
           </DialogTitle>
         </DialogHeader>
         <DialogDescription />
-        <ScrollArea className="h-72 px-3">
+        <ScrollArea className="max-h-60 px-3">
           {/* Ticket Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data?.data?.location && (
@@ -146,32 +153,30 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
           {/* Messages Section */}
           <div className="space-y-4 mt-3">
             <h3 className="font-semibold">Message History</h3>
-            <ScrollArea className="space-y-4 h-[300px]">
-              {data?.data?.messages?.map((message: TMessages) => (
-                <div
-                  key={message.time}
-                  className={`p-3 md:p-4 rounded-lg my-3 max-w-[90%] md:max-w-[80%] ${
-                    user?.role == message.role && "ml-auto"
-                  } ${
-                    message.role === "admin"
-                      ? "bg-gray-800 text-white self-end"
-                      : "bg-gray-200 text-black self-start "
-                  }`}
-                  style={{
-                    alignSelf:
-                      message.role === "admin" ? "flex-end" : "flex-start",
-                  }}
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="font-medium text-xs">{message.name}</p>
-                    <p className="text-xs text-gray-400">
-                      {new Date(message.time).toLocaleString()}
-                    </p>
-                  </div>
-                  <p className="text-xs md:text-sm">{message.message}</p>
+            {data?.data?.messages?.map((message: TMessages) => (
+              <div
+                key={message.time}
+                className={`p-3 md:p-4 rounded-lg my-3 max-w-[90%] md:max-w-[80%] ${
+                  user?.role == message.role && "ml-auto"
+                } ${
+                  message.role === "admin"
+                    ? "bg-gray-800 text-white self-end"
+                    : "bg-gray-200 text-black self-start "
+                }`}
+                style={{
+                  alignSelf:
+                    message.role === "admin" ? "flex-end" : "flex-start",
+                }}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <p className="font-medium text-xs">{message.name}</p>
+                  <p className="text-xs text-gray-400">
+                    {new Date(message.time).toLocaleString()}
+                  </p>
                 </div>
-              ))}
-            </ScrollArea>
+                <p className="text-xs md:text-sm">{message.message}</p>
+              </div>
+            ))}
           </div>
 
           {/* Reply Section */}
@@ -209,6 +214,7 @@ const SupportViewModal = ({ isOpen, setIsOpen, defaultValue }: Props) => {
               </div>
             </div>
           )}
+          <div ref={messagesEndRef} />
         </ScrollArea>
       </DialogContent>
     </Dialog>

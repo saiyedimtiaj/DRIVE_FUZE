@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +8,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import { useState } from "react";
 import { useUser } from "@/lib/user.provider";
 import { TMessages } from "@/type";
 import { Textarea } from "../ui/textarea";
@@ -34,6 +34,13 @@ const DealerSendMessageModal = ({ isOpen, setIsOpen, defaultId }: Props) => {
   const { mutate: statusChange, isPending: isStatusPanding } =
     useChangeSupportStatus();
 
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [data?.data?.messages]);
+
   const sendMessage = () => {
     const payload = {
       name: user?.role === "dealer" ? user?.lastName : "Admin",
@@ -58,7 +65,7 @@ const DealerSendMessageModal = ({ isOpen, setIsOpen, defaultId }: Props) => {
         refetch();
         setIsOpen(false);
         toast({
-          title: data?.success ? "Success" : "Failde",
+          title: data?.success ? "Success" : "Failed",
           description: data?.message,
           variant: data?.success ? "default" : "destructive",
         });
@@ -116,20 +123,16 @@ const DealerSendMessageModal = ({ isOpen, setIsOpen, defaultId }: Props) => {
 
           <div className="space-y-4 mt-3">
             <h3 className="font-semibold">Message History</h3>
-            {data?.data?.messages?.map((message: TMessages) => (
+            {data?.data?.messages?.map((message: TMessages, index: number) => (
               <div
-                key={message.time}
+                key={index}
                 className={`p-3 md:p-4 rounded-lg my-3 max-w-[90%] md:max-w-[80%] ${
                   user?.role == message.role && "ml-auto"
                 } ${
                   message.role === "admin"
                     ? "bg-gray-800 text-white self-end"
-                    : "bg-gray-200 text-black self-start "
+                    : "bg-gray-200 text-black self-start"
                 }`}
-                style={{
-                  alignSelf:
-                    message.role === "admin" ? "flex-end" : "flex-start",
-                }}
               >
                 <div className="flex justify-between items-start mb-2">
                   <p className="font-medium text-xs">{message.name}</p>
@@ -140,6 +143,8 @@ const DealerSendMessageModal = ({ isOpen, setIsOpen, defaultId }: Props) => {
                 <p className="text-xs md:text-sm">{message.message}</p>
               </div>
             ))}
+            {/* Invisible element to scroll to the bottom */}
+            <div ref={messagesEndRef} />
           </div>
 
           {data?.data?.status !== "resolve" && (

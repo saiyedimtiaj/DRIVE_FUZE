@@ -63,7 +63,7 @@ const SubReturnProcess = ({
     const formData = new FormData();
     formData.append("date", returnDetails.date);
     formData.append("dealerComments", returnDetails.dealerComments);
-    formData.append("customerComments", returnDetails.customerComments);
+    formData.append("customerComments", data?.data?.comment);
     formData.append("subscriptionId", data?.data?._id);
     formData.append(
       "currentMileage",
@@ -178,6 +178,7 @@ const SubReturnProcess = ({
             setImages={setImages}
             pdiDocument={pdiDocument}
             setPdiDocument={setPdiDocument}
+            comment={data?.data?.comment}
           />
         )}
       </div>
