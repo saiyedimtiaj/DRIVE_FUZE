@@ -1,10 +1,16 @@
 export default function TermsPage() {
   return (
     <div className="pt-20 min-h-screen bg-white">
-      <div className="relative overflow-hidden bg-white py-12">
+      <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute right-0 w-1/2 h-full dots-pattern opacity-20"></div>
-          <div className="absolute right-0 w-1/2 h-full bg-gradient-to-l from-burgundy/10 to-transparent"></div>
+          <div
+            className="absolute right-0 w-3/4 h-full"
+            style={{
+              background:
+                "linear-gradient(to left, rgba(128, 0, 32, 0.1), transparent)",
+            }}
+          ></div>
         </div>
         <div className="relative container mx-auto px-4">
           <h1 className="text-4xl font-bold text-primary mb-4">
@@ -15,7 +21,7 @@ export default function TermsPage() {
             service.
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto space-y-8">
