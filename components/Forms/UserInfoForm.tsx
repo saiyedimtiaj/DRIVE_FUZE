@@ -13,6 +13,7 @@ import CRSelect from "../Shared/CRSelect";
 import CRInput from "../Shared/CRInput";
 import CRSingleFile from "../Shared/CRSingleFile";
 import { useGetCurrentUser, useUpdateUserAccount } from "@/hooks/auth.hooks";
+import LoaderScreen from "../Shared/Loader";
 
 const EMPLOYMENT_STATUSES = [
   { name: "Employed Full-Time", value: "Employed Full-Time" },
@@ -81,7 +82,7 @@ export default function UserInfo() {
   };
 
   if (isLoading) {
-    return <p>Loading..</p>;
+    return <LoaderScreen />;
   }
 
   return (
@@ -133,7 +134,7 @@ export default function UserInfo() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2 w-full">
-                <CRInput name="phoneNumber" label="Phone Number" />
+                <CRInput name="phone" label="Phone Number" />
               </div>
               <div className="space-y-2 w-full">
                 <CRInput name="email" label="Email" onlyRead />
@@ -169,14 +170,14 @@ export default function UserInfo() {
           <h2 className="text-xl font-semibold mb-6">Address</h2>
           <div className="space-y-4">
             <div className="space-y-2">
-              <CRInput name="addressLine1" label="Address Line 1" />
+              <CRInput name="address" label="Address Line 1" />
             </div>
             <div className="space-y-2">
-              <CRInput name="addressLine2" label="Address Line 2" />
+              <CRInput name="address2" label="Address Line 2" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <CRInput name="townCity" label="Town/City" />
+                <CRInput name="city" label="Town/City" />
               </div>
               <div className="space-y-2">
                 <CRSelect name="country" label="Country" items={COUNTRIES} />
