@@ -62,8 +62,8 @@ const UserLayout = () => {
               <Link
                 href={
                   data?.data
-                    ? `dashboard/my-subscription/${data?.data?._id}`
-                    : "/subscribes"
+                    ? `/dashboard/my-subscription/${data?.data?._id}`
+                    : "/subscribe"
                 }
               >
                 <Button

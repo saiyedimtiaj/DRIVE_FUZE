@@ -45,7 +45,7 @@ const ForgotPassword = () => {
             Check your email
           </h3>
           <p className="mt-2 text-sm text-gray-600">
-            WeaditionalDriverve sent password reset instructions to {email}
+            we have sent password reset instructions to {email}
           </p>
           <Button
             className="mt-6 w-full bg-burgundy hover:bg-burgundy/90 text-white"

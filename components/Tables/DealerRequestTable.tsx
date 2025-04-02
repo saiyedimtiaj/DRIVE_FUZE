@@ -181,8 +181,6 @@ function DealerRequestTable() {
               <Link href={fulfillmentPath}>
                 <DropdownMenuItem>View Details</DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>Update Status</DropdownMenuItem>
-              <DropdownMenuItem>Add Notes</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
