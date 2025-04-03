@@ -103,7 +103,7 @@ function UserRequestTable() {
     },
 
     {
-      accessorKey: "carId.price",
+      accessorKey: "leasePrice",
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -115,7 +115,7 @@ function UserRequestTable() {
       ),
       cell: ({ row }) => (
         <div className="capitalize text-center">
-          £ {row.original.carId.price}
+          £ {row.original.leasePrice}
         </div>
       ),
     },
