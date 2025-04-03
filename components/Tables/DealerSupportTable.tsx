@@ -227,7 +227,7 @@ function DealerSupport() {
                 setSelectedId(row.original?._id);
               }}
             >
-              view details
+              View Details
             </Button>
           </div>
         );

@@ -159,7 +159,7 @@ const AllCars = ({
 
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-primary mb-1">
-                    {`${car.model}`}
+                    {`${car.brand} ${car.model}`}
                   </h3>
 
                   <div className="flex justify-between items-end mb-4">
