@@ -161,7 +161,7 @@ const CreateInventory = () => {
           <Button type="button" variant="outline">
             Cancel
           </Button>
-          <Button disabled={isPending} type="submit">
+          <Button disabled={isPending} type="submit" className="bg-burgundy">
             {isPending ? (
               <>
                 <Loader size={25} className="h-4 w-4 animate-spin mr-2" />
