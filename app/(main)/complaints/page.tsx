@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { MessageSquare, Phone, Mail, Clock } from "lucide-react";
+import { Phone, Mail, Clock } from "lucide-react";
 
 export default function ComplaintsPage() {
   return (
@@ -29,7 +28,7 @@ export default function ComplaintsPage() {
 
       <div className="container mx-auto px-4 py-12">
         {/* Contact Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <Card className="p-6 hover:shadow-lg transition-shadow">
             <Phone className="h-12 w-12 text-burgundy mb-4" />
             <h3 className="text-xl font-semibold mb-2">Phone</h3>
@@ -48,15 +47,6 @@ export default function ComplaintsPage() {
             </p>
             <p className="font-medium">complaints@drivefuze.com</p>
             <p className="text-sm text-primary/60">Response within 24 hours</p>
-          </Card>
-
-          <Card className="p-6 hover:shadow-lg transition-shadow">
-            <MessageSquare className="h-12 w-12 text-burgundy mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Online Form</h3>
-            <p className="text-primary/80 mb-4">Submit your complaint online</p>
-            <Button className="w-full bg-burgundy hover:bg-burgundy/90 text-white">
-              Start Complaint
-            </Button>
           </Card>
         </div>
 

@@ -269,9 +269,7 @@ export default function CarDetails({ id }: { id: string }) {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold mb-2">
-                    What aditionalDrivers included:
-                  </h3>
+                  <h3 className="font-semibold mb-2">What is included:</h3>
                   <ul className="space-y-2">
                     <li className="flex items-center text-sm">
                       <div className="h-1.5 w-1.5 rounded-full bg-burgundy mr-2" />

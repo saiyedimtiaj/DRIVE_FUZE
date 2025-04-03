@@ -91,7 +91,7 @@ const DealerTestomonialAndFaq = () => {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-semibold">
                   How does car subscription generate revenue for dealers?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -103,7 +103,7 @@ const DealerTestomonialAndFaq = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-semibold">
                   What kind of inventory is best for car subscription?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -114,7 +114,7 @@ const DealerTestomonialAndFaq = () => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg font-semibold">
                   How much control do I have over pricing and terms?
                 </AccordionTrigger>
                 <AccordionContent>
