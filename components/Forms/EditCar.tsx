@@ -4,7 +4,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Card } from "../ui/card";
 import CRInput from "../Shared/CRInput";
 import CRSelect from "../Shared/CRSelect";
-import { fuelTypeSelectItems } from "@/constant";
+import { fuelTypeSelectItems, gearboxTypeSelectItems } from "@/constant";
 import { Button } from "../ui/button";
 import CRform from "../Shared/CRForm";
 import { toast } from "@/hooks/use-toast";
@@ -129,7 +129,12 @@ const EditCar = () => {
               <CRInput label="C02 emissions (g/km)" name="co2Emissions" />
             </div>
             <div className="space-y-2">
-              <CRInput label="Gearbox" name="gearbox" />
+              <CRSelect
+                label="Gearbox"
+                name="gearbox"
+                placeholder="Gearbox"
+                items={gearboxTypeSelectItems}
+              />
             </div>
             <div className="space-y-2">
               <CRInput

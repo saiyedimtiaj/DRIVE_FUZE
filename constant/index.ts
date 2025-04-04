@@ -3,6 +3,10 @@ export const fuelTypeSelectItems = [
   { name: "Hybrid", value: "hybrid" },
   { name: "Petrol", value: "PETROL" },
 ];
+export const gearboxTypeSelectItems = [
+  { name: "Automatic", value: "Automatic" },
+  { name: "Manual", value: "Manual" },
+];
 
 export const statusColourShow = (status: string) => {
   if (status == "Pending") return "bg-yellow-100 text-yellow-800";

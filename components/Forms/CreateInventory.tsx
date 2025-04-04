@@ -4,7 +4,7 @@ import { FieldValues, SubmitHandler, useFormContext } from "react-hook-form";
 import { Card } from "../ui/card";
 import CRInput from "../Shared/CRInput";
 import CRSelect from "../Shared/CRSelect";
-import { fuelTypeSelectItems } from "@/constant";
+import { fuelTypeSelectItems, gearboxTypeSelectItems } from "@/constant";
 import { Button } from "../ui/button";
 import CRform from "../Shared/CRForm";
 import { toast } from "@/hooks/use-toast";
@@ -23,7 +23,6 @@ const CreateInventory = () => {
   const route = useRouter();
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.set("data", JSON.stringify(data));
     for (const image of images) {
@@ -116,7 +115,13 @@ const CreateInventory = () => {
               />
             </div>
             <div className="space-y-2">
-              <CRInput required label="Gearbox" name="gearbox" />
+              <CRSelect
+                label="Gearbox"
+                name="gearbox"
+                placeholder="Gearbox"
+                required
+                items={gearboxTypeSelectItems}
+              />
             </div>
             <div className="space-y-2">
               <CRInput
@@ -128,7 +133,6 @@ const CreateInventory = () => {
             </div>
             <div className="space-y-2">
               <CRInput
-                required
                 label="Electric Range (km)"
                 name="electricRange"
                 type="number"

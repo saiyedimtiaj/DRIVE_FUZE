@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useCreateUser } from "@/hooks/auth.hooks";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +13,8 @@ const SignupForm = () => {
   const [error, setError] = useState<string | null>(null);
   const { mutate: signUp, isPending } = useCreateUser();
   const route = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,19 +76,38 @@ const SignupForm = () => {
         <Input name="email" type="email" required className="mt-1" />
       </div>
 
-      <div>
+      <div className="relative">
         <Label htmlFor="password">Password</Label>
-        <Input name="password" type="password" required className="mt-1" />
+        <Input
+          name="password"
+          type={showPassword ? "text" : "password"}
+          required
+          className="mt-1 pr-10"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+        >
+          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+        </button>
       </div>
 
-      <div>
+      <div className="relative">
         <Label htmlFor="confirmPassword">Confirm password</Label>
         <Input
           name="confirmPassword"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           required
-          className="mt-1"
+          className="mt-1 pr-10"
         />
+        <button
+          type="button"
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+        >
+          {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+        </button>
       </div>
 
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}

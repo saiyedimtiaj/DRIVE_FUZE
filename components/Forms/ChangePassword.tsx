@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React, { useState } from "react";
-import { Loader } from "lucide-react";
+import { Loader, Eye, EyeOff } from "lucide-react";
 import { useChangePassword } from "@/hooks/auth.hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -13,6 +13,8 @@ const ChangePassword = () => {
   const { toast } = useToast();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { mutate: changePassword, isPending } = useChangePassword();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -69,26 +71,44 @@ const ChangePassword = () => {
     <form className="space-y-4 mt-6" onSubmit={handleSubmit}>
       <div>
         <Label htmlFor="newPassword">New password</Label>
-        <Input
-          id="newPassword"
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-          className="mt-1"
-        />
+        <div className="relative">
+          <Input
+            id="newPassword"
+            type={showPassword ? "text" : "password"}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+            className="mt-1 pr-10"
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
       </div>
 
       <div>
         <Label htmlFor="confirmPassword">Confirm new password</Label>
-        <Input
-          id="confirmPassword"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-          className="mt-1"
-        />
+        <div className="relative">
+          <Input
+            id="confirmPassword"
+            type={showConfirmPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="mt-1 pr-10"
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
       </div>
 
       <Button

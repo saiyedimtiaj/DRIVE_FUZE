@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Label } from "../ui/label";
@@ -8,7 +9,7 @@ import { useUserLogin } from "@/hooks/auth.hooks";
 import { useUser } from "@/lib/user.provider";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Loader } from "lucide-react";
+import { Loader, Eye, EyeOff } from "lucide-react";
 
 const SigninForm = () => {
   const { mutate: login, isPending } = useUserLogin();
@@ -16,9 +17,9 @@ const SigninForm = () => {
   const { toast } = useToast();
   const route = useRouter();
   const searchParams = useSearchParams();
+  const [showPassword, setShowPassword] = useState(false);
 
   const redirectUrl = searchParams.get("redirect");
-
   console.log(redirectUrl);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,9 +59,21 @@ const SigninForm = () => {
           <Input name="email" type="email" required className="mt-1" />
         </div>
 
-        <div>
+        <div className="relative">
           <Label htmlFor="password">Password</Label>
-          <Input name="password" type="password" required className="mt-1" />
+          <Input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            required
+            className="mt-1 pr-10"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
         </div>
 
         <div className="flex items-center justify-between">
